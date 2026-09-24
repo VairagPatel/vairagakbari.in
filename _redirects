@@ -1,0 +1,3 @@
+# Netlify redirects file (backup for netlify.toml)
+# Serve 404 page for all missing pages
+/*  /404.html  404
