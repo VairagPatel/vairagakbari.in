@@ -1,0 +1,17 @@
+{
+  "name": "vairagakbari-portfolio",
+  "version": "1.0.0",
+  "description": "Static HTML publishing system for Vairag Akbari's portfolio",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.js",
+    "validate": "node scripts/validate.js",
+    "preview": "node scripts/preview.js",
+    "new-article": "node scripts/new-article.js"
+  },
+  "author": "Vairag Akbari",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

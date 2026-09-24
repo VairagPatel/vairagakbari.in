@@ -1,0 +1,35 @@
+{
+  "id": "job-to-be-done",
+  "title": "Jobs to Be Done: A Practical Framework with a Real-Estate Example",
+  "shortTitle": "Jobs to Be Done: start with the progress",
+  "slug": "Job-To-Be-Done",
+  "topic": "Product",
+  "eyebrow": "Product · Chapter 01",
+  "description": "Learn Jobs to Be Done through a property-search example, a visual decision flow, customer interview questions, and practical measures.",
+  "lead": "A useful way to move from \"Who is our customer?\" to \"What are they trying to change?\"",
+  "readingTime": 5,
+  "status": "published",
+  "datePublished": null,
+  "dateModified": null,
+  "chapterNumber": 1,
+  "partNumber": 1,
+  "canonical": "https://vairagakbari.in/article/Job-To-Be-Done/",
+  "image": null,
+  "imageAlt": null,
+  "sources": [
+    {
+      "text": "Christensen Institute's Jobs to Be Done theory",
+      "url": "https://www.christenseninstitute.org/theory/jobs-to-be-done/"
+    }
+  ],
+  "relatedArticles": [],
+  "tableOfContents": [
+    { "id": "what-is-jtbd", "title": "What is JTBD?" },
+    { "id": "sub-topic", "title": "The three dimensions" },
+    { "id": "example", "title": "A property-search example" },
+    { "id": "flowchart", "title": "From insight to decision" },
+    { "id": "interview-questions", "title": "Questions to ask" },
+    { "id": "measure", "title": "What to measure" },
+    { "id": "sources", "title": "Sources" }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "main": [
+    { "label": "Work", "href": "/#work" },
+    { "label": "Articles", "href": "/article/" },
+    { "label": "The book", "href": "/book/" },
+    { "label": "Contact", "href": "/#contact" }
+  ],
+  "footer": [
+    { "label": "LinkedIn", "href": "https://www.linkedin.com/in/vairag-akbari" }
+  ],
+  "copyright": "© 2026 Vairag Akbari"
+}

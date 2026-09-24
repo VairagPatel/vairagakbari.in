@@ -1,0 +1,49 @@
+{
+  "title": "The CXO Learning Book",
+  "eyebrow": "03 / A book in progress",
+  "description": "My preparation for bigger business responsibilities, built one article at a time. Customer understanding first; growth, economics, and operating decisions next.",
+  "parts": [
+    {
+      "number": 1,
+      "title": "Customer Understanding",
+      "chapters": [
+        {
+          "articleId": "job-to-be-done",
+          "status": "published"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Growth & Metrics",
+      "chapters": [
+        {
+          "title": "Revenue tree: users × frequency × value",
+          "status": "planned"
+        },
+        {
+          "title": "AARRR funnel analysis",
+          "status": "planned"
+        },
+        {
+          "title": "Retention cohorts",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Prioritisation & Execution",
+      "chapters": [
+        {
+          "title": "RICE framework with visible assumptions",
+          "status": "planned"
+        },
+        {
+          "title": "GTM agents: automate prep, keep judgment human",
+          "status": "planned"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="{{language}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{pageTitle}}</title>
+  <meta name="description" content="{{pageDescription}}">
+  <link rel="canonical" href="{{canonicalUrl}}">
+  
+  {{#if ogType}}
+  <meta property="og:type" content="{{ogType}}">
+  {{/if}}
+  <meta property="og:title" content="{{ogTitle}}">
+  <meta property="og:description" content="{{ogDescription}}">
+  <meta property="og:url" content="{{ogUrl}}">
+  {{#if ogSiteName}}
+  <meta property="og:site_name" content="{{ogSiteName}}">
+  {{/if}}
+  {{#if ogImage}}
+  <meta property="og:image" content="{{ogImage}}">
+  <meta property="og:image:alt" content="{{ogImageAlt}}">
+  {{/if}}
+  
+  <meta name="twitter:card" content="{{twitterCard}}">
+  {{#if twitterImage}}
+  <meta name="twitter:image" content="{{twitterImage}}">
+  <meta name="twitter:image:alt" content="{{twitterImageAlt}}">
+  {{/if}}
+  
+  <meta name="theme-color" content="{{themeColor}}">
+  <link rel="icon" type="image/svg+xml" href="{{favicon}}">
+  <link rel="stylesheet" href="/assets/style.css">
+  
+  {{#if jsonLd}}
+  <script type="application/ld+json">{{{jsonLd}}}</script>
+  {{/if}}
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  
+  <header>
+    <div class="wrap">
+      <a class="brand" href="/">
+        <span class="mark">va</span>{{siteName}}
+      </a>
+      <nav aria-label="Main navigation">
+        {{#each navigation}}
+        <a href="{{href}}">{{label}}</a>
+        {{/each}}
+      </nav>
+    </div>
+  </header>
+  
+  <main id="main" class="wrap">
+    {{{content}}}
+  </main>
+  
+  <footer class="wrap footer">
+    <span>{{copyright}}</span>
+    <span>{{authorRole}} · {{authorLocation}}</span>
+    {{#each footerLinks}}
+    <a href="{{href}}">{{label}}</a>
+    {{/each}}
+  </footer>
+</body>
+</html>

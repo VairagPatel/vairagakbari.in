@@ -38,7 +38,7 @@ Desktop.ini
 .env.test.local
 .env.production.local
 
-# Build outputs (if you add build tools later)
+# Build caches (NOT dist/ which is the public output)
 .cache/
 .temp/
 .tmp/
@@ -58,3 +58,8 @@ coverage/
 # Misc
 *.pem
 *.key
+
+# IMPORTANT: Keep distribution drafts private
+# Distribution folder contains pre-publication work
+# It must NEVER be committed or deployed publicly
+distribution/

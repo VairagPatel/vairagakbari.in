@@ -1,0 +1,40 @@
+{
+  "eyebrow": "Bengaluru, India · Open to opportunities",
+  "headline": "Hi, I'm Vairag.<br>I connect <em class=\"accent\">customer needs</em><br>to business decisions.",
+  "lead": "I work on growth and operations at Jumbo Homes. I'm looking for founder's office, strategy, growth, and product roles where I can own a problem and see it through.",
+  "portraitCaption": "An operator's experience. A learner's curiosity.",
+  "portraitImage": "/assets/vairag-akbari.webp",
+  "portraitAlt": "Portrait of Vairag Akbari in a black suit",
+  "resumePdf": "/assets/vairag-akbari-resume.pdf",
+  "work": [
+    {
+      "meta": "JUMBO HOMES · JUNE 2026–PRESENT",
+      "title": "Owning a property sales pipeline",
+      "description": "Supply onboarding, buyer qualification, visits, negotiation, and legal coordination. I keep the next action clear for customers and internal teams.",
+      "tags": ["Pipeline management", "Customer discovery"]
+    },
+    {
+      "meta": "GTM OPERATIONS · BUILT",
+      "title": "Seller outreach mail agent",
+      "description": "Turned lead data into ready-to-review Gmail drafts so the supply team could spend more time on seller conversations and follow-ups.",
+      "tags": ["Google Sheets", "Outreach automation"]
+    },
+    {
+      "meta": "OPERATOR AGENT · DESIGNED",
+      "title": "A listing image workflow",
+      "description": "Designed an AI-assisted process from raw property photos to listing-ready images, with three human approval gates. Prompts were validated; the full pipeline remains a design.",
+      "tags": ["Agent workflows", "Human review"]
+    },
+    {
+      "meta": "VIT BHOPAL · CLUB PRESIDENT, 2023–2025",
+      "title": "Bringing 5,000+ people together",
+      "description": "Led sponsorship outreach, vendor negotiations, and event operations with 100+ core members and volunteers.",
+      "tags": ["Partnerships", "Team coordination"]
+    }
+  ],
+  "toolkit": {
+    "inPractice": "Google Sheets, Excel, Twenty CRM, outreach, negotiation, and workflow design.",
+    "learning": "SQL, deeper Excel analysis, Mixpanel, product analytics, growth funnels, and prioritisation frameworks.",
+    "interest": "Interested in GTM engineering through useful agents and better business workflows."
+  }
+}
