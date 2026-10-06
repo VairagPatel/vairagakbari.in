@@ -179,14 +179,30 @@ const generateHeader = () => {
 
 // Generate footer
 const generateFooter = () => {
-  const footerLinks = navigation.footer.map(item =>
-    `<a href="${escape(item.href)}">${escape(item.label)}</a>`
-  ).join('');
+  // Get all verified social links
+  const socialLinks = [];
+  const socialPlatforms = {
+    linkedin: 'LinkedIn',
+    github: 'GitHub',
+    twitter: 'X',
+    instagram: 'Instagram',
+    medium: 'Medium',
+    substack: 'Substack',
+    geeksforgeeks: 'GeeksforGeeks',
+    leetcode: 'LeetCode',
+    threads: 'Threads'
+  };
+  
+  Object.entries(socialPlatforms).forEach(([key, label]) => {
+    if (site.social[key]) {
+      socialLinks.push(`<a href="${escape(site.social[key])}">${escape(label)}</a>`);
+    }
+  });
   
   return `<footer class="wrap footer">
   <span>${escape(navigation.copyright)}</span>
   <span>${escape(site.author.role)} · ${escape(site.author.location)}</span>
-  ${footerLinks}
+  ${socialLinks.join('')}
 </footer>`;
 };
 
@@ -289,6 +305,30 @@ const buildHomepage = (articles) => {
     <a class="btn primary" href="mailto:${escape(site.contact.email)}">Email me</a>
     ${site.social.linkedin ? `<a class="btn" href="${escape(site.social.linkedin)}">Connect on LinkedIn ↗</a>` : ''}
   </div>
+  ${(() => {
+    const socialLinks = [];
+    const socialPlatforms = {
+      github: 'GitHub',
+      twitter: 'X',
+      instagram: 'Instagram',
+      medium: 'Medium',
+      substack: 'Substack',
+      geeksforgeeks: 'GeeksforGeeks',
+      leetcode: 'LeetCode',
+      threads: 'Threads'
+    };
+    
+    Object.entries(socialPlatforms).forEach(([key, label]) => {
+      if (site.social[key]) {
+        socialLinks.push(`<a href="${escape(site.social[key])}">${escape(label)} ↗</a>`);
+      }
+    });
+    
+    if (socialLinks.length > 0) {
+      return `<p class="muted" style="margin-top: 24px;">Also find me on: ${socialLinks.join(' · ')}</p>`;
+    }
+    return '';
+  })()}
 </section>
 `;
   
