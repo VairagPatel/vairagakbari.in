@@ -1,0 +1,51 @@
+/* CSS-ADDITIONS.css */
+/* Add these styles to dist/assets/style.css */
+
+/* Capability section styling */
+.capability {
+  padding: 28px 0;
+  border-top: 1px solid #bcbfb4;
+}
+
+.capability h3 {
+  color: #2c46de;
+  font-size: 1.4rem;
+  margin-bottom: 14px;
+}
+
+.capability p {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.capability .evidence {
+  font-size: 15px;
+  color: #53594f;
+  font-style: italic;
+}
+
+/* Value proposition callout on homepage */
+.value-prop {
+  font-size: 18px;
+  max-width: 620px;
+  color: #2c46de;
+  margin-top: 14px;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+/* Mobile responsive adjustments for capabilities */
+@media(max-width:720px){
+  .capability {
+    padding: 20px 0;
+  }
+  
+  .capability h3 {
+    font-size: 1.3rem;
+  }
+  
+  .value-prop {
+    font-size: 17px;
+    margin-top: 12px;
+  }
+}

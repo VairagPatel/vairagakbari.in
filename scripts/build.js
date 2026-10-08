@@ -230,15 +230,25 @@ const buildHomepage = (articles) => {
     </a>
   `).join('');
   
+  // Capabilities section
+  const capabilities = profile.capabilities ? profile.capabilities.map(cap => `
+    <article class="capability">
+      <h3>${cap.problem}</h3>
+      <p><strong>My approach:</strong> ${cap.approach}</p>
+      <p class="evidence"><strong>Evidence:</strong> ${cap.evidence}</p>
+    </article>
+  `).join('') : '';
+  
   const content = `
 <section class="hero">
   <div>
     <p class="eyebrow">${profile.eyebrow}</p>
     <h1>${profile.headline}</h1>
     <p class="lead">${profile.lead}</p>
+    ${profile.value ? `<p class="value-prop">${profile.value}</p>` : ''}
     <div class="actions">
-      <a class="btn primary" href="#work">Explore my work</a>
-      <a class="btn" href="${escape(profile.resumePdf)}">Read my résumé ↗</a>
+      <a class="btn primary" href="${escape(profile.resumePdf)}">Download résumé ↗</a>
+      <a class="btn" href="#${profile.capabilities ? 'capabilities' : 'work'}">See what I can do</a>
     </div>
   </div>
   <figure>
@@ -247,13 +257,24 @@ const buildHomepage = (articles) => {
   </figure>
 </section>
 
+${profile.capabilities ? `<section id="capabilities">
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">01 / What I can help you solve</p>
+      <h2>Business problems<br>I tackle</h2>
+    </div>
+    <p>I'm a growth operator who diagnoses pipeline issues, improves workflows, and helps teams close more deals.</p>
+  </div>
+  ${capabilities}
+</section>` : ''}
+
 <section id="work">
   <div class="section-head">
     <div>
-      <p class="eyebrow">01 / Work in practice</p>
-      <h2>From conversations<br>to execution.</h2>
+      <p class="eyebrow">${profile.capabilities ? '02' : '01'} / Work in practice</p>
+      <h2>Experience &<br>projects</h2>
     </div>
-    <p>My experience spans sales, cross-functional operations, outreach workflows, and leading teams on the ground.</p>
+    <p>Where I've applied these capabilities in real business contexts.</p>
   </div>
   <div class="grid">
     ${workCards}
@@ -263,20 +284,20 @@ const buildHomepage = (articles) => {
 <section>
   <div class="section-head">
     <div>
-      <p class="eyebrow">02 / Learning in public</p>
+      <p class="eyebrow">${profile.capabilities ? '03' : '02'} / Learning in public</p>
       <h2>Frameworks, with<br>the thinking attached.</h2>
     </div>
-    <p>I turn what I'm learning into articles, funnels, and flowcharts: the question, the model, and where it applies.</p>
+    <p>I document what I'm learning through articles: the question, the framework, and a worked example.</p>
   </div>
   ${featuredArticles}
   <div class="actions">
-    <a href="/article/">Browse the notebook ↗</a>
+    <a href="/article/">Browse all articles ↗</a>
   </div>
 </section>
 
 <section>
   <div class="book">
-    <p class="eyebrow">${escape(book.eyebrow)}</p>
+    <p class="eyebrow">${profile.capabilities ? '04' : '03'} / A book in progress</p>
     <h2>${escape(book.title)}</h2>
     <p>${book.description}</p>
     <a class="btn" href="/book/">Open the book ↗</a>
@@ -286,21 +307,21 @@ const buildHomepage = (articles) => {
 <section>
   <div class="section-head">
     <div>
-      <p class="eyebrow">04 / My toolkit</p>
+      <p class="eyebrow">${profile.capabilities ? '05' : '04'} / My toolkit</p>
       <h2>Using today.<br>Learning next.</h2>
     </div>
     <div>
-      <p><strong>In practice</strong><br>${profile.toolkit.inPractice}</p>
-      <p><strong>Currently learning</strong><br>${profile.toolkit.learning}</p>
+      <p><strong>In practice:</strong> ${profile.toolkit.inPractice}</p>
+      <p><strong>Currently learning:</strong> ${profile.toolkit.learning}</p>
       <p class="caption">${profile.toolkit.interest}</p>
     </div>
   </div>
 </section>
 
 <section id="contact">
-  <p class="eyebrow">05 / Let's talk</p>
-  <h2>Have a business problem<br>I could help work through?</h2>
-  <p class="lead">I'm actively applying for founder's office, strategy, growth, and product opportunities.</p>
+  <p class="eyebrow">${profile.capabilities ? '06' : '05'} / Let's talk</p>
+  <h2>Looking for someone to own<br>growth end-to-end?</h2>
+  <p class="lead">I'm actively seeking founder's office and growth roles where I can own the customer journey from pipeline to close.</p>
   <div class="actions">
     <a class="btn primary" href="mailto:${escape(site.contact.email)}">Email me</a>
     ${site.social.linkedin ? `<a class="btn" href="${escape(site.social.linkedin)}">Connect on LinkedIn ↗</a>` : ''}
@@ -333,8 +354,8 @@ const buildHomepage = (articles) => {
 `;
   
   const head = generateHead({
-    title: `Founder's Office, Strategy, Growth & Product | ${site.name}`,
-    description: site.description + ": growth and operations at Jumbo Homes, GTM workflows, product frameworks, and a CXO learning book.",
+    title: `Growth Operator — Founder's Office & Strategy Roles | ${site.name}`,
+    description: "Growth operator targeting founder's office roles. I diagnose pipeline bottlenecks, turn customer insights into revenue, and fix workflows. Currently @ Jumbo Homes.",
     canonical: site.domain + '/',
     type: 'ProfilePage'
   });

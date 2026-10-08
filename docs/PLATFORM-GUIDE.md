@@ -15,9 +15,36 @@ This guide explains how to adapt your website articles for different platforms. 
 | Optional | X / Threads | Quick insights, discussion | Selective |
 | Optional | Instagram | Visual explanations | When you have strong diagrams |
 | Selective | Reddit/Quora | Answer real questions | When relevant question exists |
-| Selective | GFG/LeetCode | Technical content only | Only if genuinely applicable |
+| Skip | GFG/LeetCode | Technical content only | Only if genuinely applicable |
 
 **Start with your website + LinkedIn.** Add one secondary channel after you have a sustainable writing habit.
+
+---
+
+## Distribution Folder Structure
+
+For each article, create a folder: `distribution/{article-slug}/`
+
+This folder contains platform-specific drafts and publishing logs. **IMPORTANT: This folder is private and must NEVER be copied to `dist/` or deployed publicly.**
+
+```
+distribution/
+  job-to-be-done/
+    source.json              # Article revision tracking
+    publishing-log.json      # Publication status per platform
+    linkedin-post.md         # LinkedIn post draft
+    linkedin-article.md      # LinkedIn article draft (optional)
+    x-thread.md              # X/Twitter thread
+    instagram-carousel.md    # Instagram carousel brief
+    threads-posts.md         # Threads post options
+    medium.md                # Medium excerpt or import instructions
+    substack-digest.md       # Substack newsletter draft
+    gfg-review.md            # GFG eligibility check (usually skip)
+    leetcode-review.md       # LeetCode review (usually skip)
+    other-channels.md        # Pinterest, Reddit, Quora, etc.
+```
+
+All distribution files are working drafts for your review before manual posting.
 
 ---
 

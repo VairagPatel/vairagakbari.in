@@ -1,35 +1,63 @@
 {
   "eyebrow": "Bengaluru, India · Open to opportunities",
-  "headline": "Hi, I'm Vairag.<br>I connect <em class=\"accent\">customer needs</em><br>to business decisions.",
-  "lead": "I work on growth and operations at Jumbo Homes. I'm looking for founder's office, strategy, growth, and product roles where I can own a problem and see it through.",
-  "portraitCaption": "An operator's experience. A learner's curiosity.",
+  "headline": "I help early-stage companies turn customer insights into <em class=\"accent\">revenue</em> and <em class=\"accent\">repeatable operations</em>.",
+  "lead": "Growth operator at Jumbo Homes. Targeting founder's office and growth roles where I own the full customer journey—from pipeline to closed deals.",
+  "value": "I diagnose where your funnel breaks, talk to customers to understand why, and fix the workflow so your team can close more without working harder.",
+  "portraitCaption": "Sales pipeline → Customer discovery → Workflow improvement",
   "portraitImage": "/assets/vairag-akbari.webp",
   "portraitAlt": "Portrait of Vairag Akbari in a black suit",
   "resumePdf": "/assets/vairag-akbari-resume.pdf",
+  "capabilities": [
+    {
+      "problem": "Sales pipeline stalls and nobody knows why",
+      "approach": "I map every step from first contact to close, talk to customers who dropped off, and find where the friction actually is—not where we assume it is.",
+      "evidence": "Jumbo Homes: Currently managing property sales end-to-end across multiple zones."
+    },
+    {
+      "problem": "Outreach takes too long and follow-ups get missed",
+      "approach": "I automate the prep work so your team spends time on conversations, not admin. Built a Gmail draft generator from lead data using Google Sheets.",
+      "evidence": "Seller outreach agent (see Work section)"
+    },
+    {
+      "problem": "Customer needs aren't clear from the data",
+      "approach": "I use Jobs to Be Done and direct customer conversations to understand what progress they're trying to make, then prioritize what matters.",
+      "evidence": "Applied JTBD framework to property buyer qualification"
+    },
+    {
+      "problem": "Projects involve too many teams and unclear ownership",
+      "approach": "I coordinate across supply, marketing, legal, and ops teams. I keep the next action clear and follow up until it's done.",
+      "evidence": "Jumbo Homes: Coordinating supply onboarding, buyer visits, negotiation, legal coordination"
+    },
+    {
+      "problem": "Agent workflows fail because they skip human judgment",
+      "approach": "I design AI-assisted workflows with approval gates at decision points. Automation handles prep; humans handle judgment.",
+      "evidence": "Listing image workflow design with 3 approval gates (design phase)"
+    }
+  ],
   "work": [
     {
       "meta": "JUMBO HOMES · JUNE 2026–PRESENT",
-      "title": "Owning a property sales pipeline",
-      "description": "Supply onboarding, buyer qualification, visits, negotiation, and legal coordination. I keep the next action clear for customers and internal teams.",
-      "tags": ["Pipeline management", "Customer discovery"]
+      "title": "End-to-end property sales across multiple zones",
+      "description": "Supply onboarding, buyer qualification, visit coordination, negotiation, and legal handoff. I identify pipeline bottlenecks and keep deals moving.",
+      "tags": ["Pipeline management", "Customer qualification", "Cross-team coordination"]
     },
     {
-      "meta": "GTM OPERATIONS · BUILT",
-      "title": "Seller outreach mail agent",
-      "description": "Turned lead data into ready-to-review Gmail drafts so the supply team could spend more time on seller conversations and follow-ups.",
-      "tags": ["Google Sheets", "Outreach automation"]
+      "meta": "INDEPENDENT PROJECT · 2026",
+      "title": "Seller outreach automation (Google Sheets → Gmail)",
+      "description": "Built a workflow that turns lead data into personalized Gmail drafts. Supply team reviews and sends, spending more time on conversations instead of email prep.",
+      "tags": ["Outreach automation", "Google Sheets", "Workflow efficiency"]
     },
     {
-      "meta": "OPERATOR AGENT · DESIGNED",
-      "title": "A listing image workflow",
-      "description": "Designed an AI-assisted process from raw property photos to listing-ready images, with three human approval gates. Prompts were validated; the full pipeline remains a design.",
-      "tags": ["Agent workflows", "Human review"]
+      "meta": "WORKFLOW DESIGN · 2026",
+      "title": "AI-assisted listing image workflow",
+      "description": "Designed a process from raw property photos to listing-ready images with 3 human approval gates. Prompts validated; full implementation not yet built.",
+      "tags": ["Agent workflow design", "Human-in-loop"]
     },
     {
-      "meta": "VIT BHOPAL · CLUB PRESIDENT, 2023–2025",
-      "title": "Bringing 5,000+ people together",
-      "description": "Led sponsorship outreach, vendor negotiations, and event operations with 100+ core members and volunteers.",
-      "tags": ["Partnerships", "Team coordination"]
+      "meta": "VIT BHOPAL · 2023–2025",
+      "title": "Club President: 5,000+ attendee events",
+      "description": "Led sponsorship outreach, vendor negotiations, and event operations. Managed 100+ core members and volunteers across planning and execution.",
+      "tags": ["Partnerships", "Team leadership", "Stakeholder management"]
     }
   ],
   "toolkit": {

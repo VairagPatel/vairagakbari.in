@@ -1,245 +1,343 @@
 # Publishing Checklist
 
-Use this checklist every time you publish or update an article.
+Use this checklist before publishing a new article or major update.
 
 ---
 
-## Pre-Publication (On Your Website)
+## Pre-Publication Checklist
 
-### Content Review
-- [ ] Article has a clear question, model, example, and takeaway
-- [ ] All claims are accurate and verifiable
-- [ ] Sources are cited with proper links
-- [ ] Examples are illustrative (marked if not real customer interviews)
-- [ ] No invented statistics, fake testimonials, or unverified credentials
-- [ ] Tone is natural and concrete, not inflated
+### 1. Content Review
 
-### Technical Checks
-- [ ] `status: "published"` in meta.json
-- [ ] All required fields complete in meta.json (title, description, canonical, etc.)
-- [ ] Section IDs in body.html match tableOfContents in meta.json
-- [ ] All internal links work
-- [ ] All external links tested
-- [ ] Images have proper alt text
-- [ ] `datePublished` set (YYYY-MM-DD format)
-- [ ] Canonical URL is correct and matches slug
+- [ ] Article title is accurate and descriptive
+- [ ] Description summarizes the article clearly (< 160 characters ideal)
+- [ ] Lead paragraph hooks the reader
+- [ ] Sections have clear headings
+- [ ] Section IDs match `tableOfContents` in `meta.json`
+- [ ] Sources are cited with text and URL
+- [ ] Related articles (if any) reference correct article IDs
+- [ ] No placeholder text ("TODO", "FIXME", "DRAFT")
+- [ ] Diagrams/images have descriptive alt text
+- [ ] Facts and statistics are accurate
+- [ ] Reading tone matches site style (direct, factual, helpful)
 
-### Build & Validate
-- [ ] Run `npm run build` — no errors
-- [ ] Run `npm run validate` — passes or only acceptable warnings
-- [ ] Run `npm run preview` — article displays correctly
-- [ ] Test on mobile width (resize browser or use dev tools)
-- [ ] Test keyboard navigation (Tab through links, Enter to activate)
-- [ ] Test with JavaScript disabled (content still readable)
-- [ ] All section anchor links work (#sub-topic jumps to correct place)
+### 2. Metadata Check
 
----
+- [ ] `id` is unique and stable
+- [ ] `slug` is URL-safe (lowercase, hyphens, no spaces)
+- [ ] `status` is set to `"published"`
+- [ ] `datePublished` is set (ISO 8601 format)
+- [ ] `canonical` matches expected URL pattern
+- [ ] `canonical` has no fragment (#)
+- [ ] `topic` is accurate
+- [ ] `chapterNumber` and `partNumber` match book structure (if applicable)
+- [ ] `relatedArticles` reference existing article IDs
+- [ ] `tableOfContents` entries match section IDs in body.html
 
-## Deployment
+### 3. Build and Validate
 
-- [ ] `git add .`
-- [ ] `git commit -m "Add article: [Title]"` or `"Update article: [Title]"`
-- [ ] `git push origin main`
-- [ ] Wait for Netlify deploy (check deploy log if needed)
-
----
-
-## Post-Deploy Verification
-
-- [ ] Visit the live article URL
-- [ ] Page loads correctly (no 404, no broken styles)
-- [ ] Title and description are correct in browser tab
-- [ ] Canonical meta tag points to this URL
-- [ ] Open Graph tags present (check with View Source)
-- [ ] All section anchors work on live site
-- [ ] Mobile layout works (test on actual phone if possible)
-- [ ] Sitemap includes the new article: `https://vairagakbari.in/sitemap.xml`
-- [ ] Article appears in article index: `/article/`
-- [ ] If part of book, appears in book page: `/book/`
-
----
-
-## Distribution Preparation
-
-Only proceed after website article is verified live.
-
-### Create Distribution Folder
-```cmd
-mkdir distribution\[article-slug]
+```bash
+npm run build
 ```
 
-### Generate Platform Drafts
+- [ ] Build completed without errors
+- [ ] No missing files or broken references
 
-#### LinkedIn Post
-- [ ] Create `distribution/[slug]/linkedin-post.md`
-- [ ] Write concise insight (3-5 short paragraphs)
-- [ ] Outline carousel concept (5-7 slides)
-- [ ] Include link to canonical article
-- [ ] Status: draft
+```bash
+npm run validate
+```
 
-#### LinkedIn Article (optional)
-- [ ] Create `distribution/[slug]/linkedin-article.md`
-- [ ] Write distinct professional angle
-- [ ] Credit source with link
-- [ ] Status: draft
+- [ ] Validation passed with no errors
+- [ ] Warnings reviewed and addressed (or documented as acceptable)
 
-#### Medium (optional)
-- [ ] Create `distribution/[slug]/medium.md`
-- [ ] Choose: full republish with canonical OR adapted excerpt
-- [ ] If republishing, check Medium import tool first
-- [ ] Status: draft
+### 4. Local Preview
 
-#### Other Platforms
-- [ ] X/Twitter thread: `x-thread.md`
-- [ ] Instagram carousel: `instagram-carousel.md`
-- [ ] Substack digest: `substack-digest.md`
-- [ ] Mark "skip" if platform doesn't fit the article
+```bash
+npm run preview
+```
 
-### Source Tracking
-- [ ] Create `distribution/[slug]/source.json`:
-  ```json
-  {
-    "articleId": "article-id",
-    "revision": 1,
-    "canonical": "https://vairagakbari.in/article/slug/",
-    "lastGenerated": "2026-09-24",
-    "websiteVerified": true
-  }
-  ```
+- [ ] Homepage displays correctly
+- [ ] Article appears in article index
+- [ ] Article page loads correctly
+- [ ] All section anchors work (`/article/{slug}/#section-id`)
+- [ ] Images load correctly
+- [ ] Internal links work
+- [ ] Résumé link works
+- [ ] Contact links work
+- [ ] Navigation works
+- [ ] Footer displays correctly
+- [ ] Mobile layout is readable (test in browser DevTools)
+- [ ] No console errors in browser
 
----
+### 5. SEO and Metadata
 
-## Platform Publishing
+Check generated HTML in `dist/article/{slug}/index.html`:
 
-Do NOT proceed until:
-1. Article is verified live on your website
-2. Platform drafts are reviewed
-3. You have decided which platforms to use
+- [ ] `<title>` is unique and descriptive
+- [ ] `<meta name="description">` is present and useful
+- [ ] `<link rel="canonical">` points to correct URL
+- [ ] Open Graph tags present: `og:title`, `og:description`, `og:url`, `og:type`
+- [ ] Twitter card tags present
+- [ ] JSON-LD structured data is valid (check syntax)
+- [ ] No duplicate title tags
+- [ ] No duplicate meta descriptions
+- [ ] `datePublished` and `dateModified` in JSON-LD (if set)
 
-### LinkedIn
-- [ ] Create carousel/document in design tool
-- [ ] Export images with proper dimensions
-- [ ] Write image alt text
-- [ ] Review post text for clarity and tone
-- [ ] Add UTM parameters to link if tracking: `?utm_source=linkedin&utm_medium=social&utm_campaign=article-slug`
-- [ ] Post to LinkedIn
-- [ ] Save actual published URL
-- [ ] Log in `distribution/[slug]/publishing-log.json`
+### 6. Sitemap and Robots
 
-### Medium (if used)
-- [ ] Use Medium import tool if republishing full article
-- [ ] Set canonical to your original article
-- [ ] Verify canonical appears in HTML after import
-- [ ] OR publish adapted excerpt with clear source link
-- [ ] Log publication URL and date
+- [ ] Article URL is in `dist/sitemap.xml`
+- [ ] `robots.txt` allows crawling
+- [ ] No distribution folder references in `dist/`
 
-### Other Platforms
-- [ ] Follow platform-specific guidelines
-- [ ] Check community rules before posting
-- [ ] Disclose affiliation where required
-- [ ] Log all publication URLs
+### 7. Book Integration (if applicable)
+
+- [ ] Article added to `content/book.json` with correct article ID
+- [ ] Book page (`/book/`) displays article link correctly
+- [ ] Chapter number displayed correctly
 
 ---
 
-## Post-Publication
+## Publication Steps
 
-### Immediate (First 48 Hours)
-- [ ] Monitor comments and respond thoughtfully
-- [ ] Note objections or questions for future article improvements
-- [ ] Check for technical issues reported by readers
+### 8. Deploy to Production
 
-### First Week
-- [ ] Review engagement patterns (which platform drove readers?)
-- [ ] Note any misunderstandings to clarify in article
-- [ ] Update article if meaningful errors found
+Follow your deployment method (Netlify, manual FTP, etc.):
 
-### Monthly Review
-- [ ] Check article in Google Search Console (if verified)
-- [ ] Review which articles readers actually read
-- [ ] Check for broken links (internal and external)
-- [ ] Identify which topics resonate for future articles
-
----
-
-## For Article Updates
-
-### Minor Fixes (Typos, Small Clarifications)
-- [ ] Edit source files
-- [ ] Build and deploy
-- [ ] Do NOT change `datePublished`
-- [ ] Do NOT need to re-announce
-
-### Substantial Changes
-- [ ] Edit source files
-- [ ] Update `dateModified` in meta.json
-- [ ] Build, validate, deploy
-- [ ] Verify live
-- [ ] Optional: note the update in distribution channels
-- [ ] Update platform drafts to "needs-update" status
-- [ ] Review if platform posts need correction
-
----
-
-## Red Flags — Do Not Publish If:
-
-- [ ] Article contains invented statistics or unverified claims
-- [ ] Example is presented as real customer research but is hypothetical
-- [ ] Claims software/framework proficiency you don't have
-- [ ] Links to non-existent or unverified social profiles
-- [ ] Canonical URL is incorrect or includes #fragment
-- [ ] Duplicate article ID or slug exists
-- [ ] `npm run validate` shows critical errors
-- [ ] Article not visible on local preview
-- [ ] Distribution folder will be in dist/ (must be excluded)
-
----
-
-## Safe Rollback
-
-If something goes wrong after deploy:
-
-```cmd
-git log --oneline
-git revert [commit-hash]
+```bash
+git add .
+git commit -m "Publish article: {title}"
 git push origin main
 ```
 
-Or restore previous version:
-```cmd
-git reset --hard [previous-commit-hash]
-git push --force origin main
+- [ ] Deployment triggered
+- [ ] Deployment completed successfully
+- [ ] No build errors in deployment log
+
+### 9. Verify Live Site
+
+Visit `https://vairagakbari.in/article/{slug}/` and check:
+
+- [ ] Article loads (200 response, not 404)
+- [ ] All sections and anchors work
+- [ ] Images load
+- [ ] Internal links work
+- [ ] Meta tags correct (view source)
+- [ ] Mobile rendering correct
+- [ ] No broken links
+
+Visit homepage:
+
+- [ ] New article appears in featured/recent articles
+- [ ] Article count updated
+
+Visit `/article/`:
+
+- [ ] New article in article index
+
+Visit `/book/` (if applicable):
+
+- [ ] Chapter link appears and works
+
+Check sitemap:
+
+- [ ] Visit `https://vairagakbari.in/sitemap.xml`
+- [ ] New article URL present
+
+### 10. Test External Links
+
+- [ ] Share URL on LinkedIn (check preview card)
+- [ ] Share URL on X/Twitter (check preview card)
+- [ ] Open Graph image displays correctly (if set)
+- [ ] Share on WhatsApp (check preview) — optional
+
+---
+
+## Post-Publication: Distribution
+
+### 11. Prepare Distribution Drafts
+
+Only AFTER the article is live on your website:
+
+1. Create distribution folder:
+   ```
+   distribution/{article-slug}/
+   ```
+
+2. Update or create these files:
+   - [ ] `source.json` (article ID, canonical URL, date generated)
+   - [ ] `publishing-log.json` (mark website as published)
+   - [ ] `linkedin-post.md`
+   - [ ] `linkedin-article.md`
+   - [ ] `x-thread.md`
+   - [ ] `instagram-carousel.md`
+   - [ ] `threads-posts.md`
+   - [ ] `medium.md`
+   - [ ] `substack-digest.md`
+   - [ ] `gfg-review.md` (mark skip if not suitable)
+   - [ ] `leetcode-review.md` (mark skip if not suitable)
+   - [ ] `other-channels.md`
+
+3. Review each draft:
+   - [ ] Derived from published website article
+   - [ ] Contains clear link to canonical source
+   - [ ] Provides standalone value
+   - [ ] Platform-appropriate format and tone
+   - [ ] UTM parameters correct
+
+### 12. Approve and Publish External Channels
+
+For each platform you choose to use:
+
+**LinkedIn Post**:
+- [ ] Draft reviewed and approved
+- [ ] Visual created (if using carousel)
+- [ ] Posted on LinkedIn
+- [ ] URL added to `publishing-log.json`
+- [ ] Status updated to "published"
+
+**X Thread**:
+- [ ] Draft reviewed and approved
+- [ ] Thread posted
+- [ ] First tweet URL added to `publishing-log.json`
+- [ ] Status updated to "published"
+
+**Instagram**:
+- [ ] Carousel designed and exported
+- [ ] Caption approved
+- [ ] Posted on Instagram
+- [ ] Status updated to "published"
+
+**Medium** (if using):
+- [ ] Option selected (excerpt vs full import)
+- [ ] Draft approved
+- [ ] Posted on Medium
+- [ ] URL added to `publishing-log.json`
+- [ ] Status updated to "published"
+
+Repeat for other platforms as needed.
+
+### 13. Update Publishing Log
+
+After each external publication, update `distribution/{slug}/publishing-log.json`:
+
+```json
+{
+  "platform": "linkedin",
+  "status": "published",
+  "sourceRevision": "initial",
+  "approvedAt": "2026-10-15T09:00:00.000Z",
+  "publishedAt": "2026-10-15T10:30:00.000Z",
+  "url": "https://www.linkedin.com/posts/actual-post-url",
+  "utmUrl": "https://vairagakbari.in/article/Job-To-Be-Done/?utm_source=linkedin&utm_medium=social&utm_campaign=job-to-be-done",
+  "notes": "Posted as text + link. Good engagement."
+}
 ```
 
-**Warning:** Force push overwrites history. Only use if absolutely necessary and recent.
+---
+
+## Monitoring and Updates
+
+### 14. Track Performance (Optional)
+
+If you have analytics:
+
+- [ ] Article page views tracked
+- [ ] Traffic sources identified
+- [ ] Bounce rate acceptable
+- [ ] Time on page reasonable
+- [ ] External shares tracked
+
+### 15. Google Search Console (if configured)
+
+- [ ] Submit URL for indexing (optional, crawlers will find it)
+- [ ] Check indexing status after a few days
+- [ ] Review search appearance
+- [ ] Check for crawl errors
+
+### 16. Update Article if Needed
+
+If you need to make changes:
+
+- [ ] Edit source files (body.html, meta.json)
+- [ ] Update `dateModified` in meta.json
+- [ ] Keep `datePublished` unchanged
+- [ ] Rebuild and validate
+- [ ] Redeploy
+- [ ] Mark external distribution drafts as "needs-update" if substantial changes
 
 ---
 
-## Monthly Maintenance Checklist
+## Rollback Plan
 
-- [ ] Check all external links still work
-- [ ] Review Google Search Console for issues (if verified)
-- [ ] Update any outdated claims or statistics
-- [ ] Review and respond to any late comments
-- [ ] Check site loads correctly on current browsers
-- [ ] Verify SSL certificate is active (auto-renewed by Netlify)
+If something goes wrong:
 
----
+### Quick Fixes
+- [ ] Fix typo/error in source file
+- [ ] Rebuild
+- [ ] Redeploy
 
-## Success Measures
+### Unpublish Article
+- [ ] Change `status` to `"draft"` in meta.json
+- [ ] Rebuild (article disappears from listings)
+- [ ] Redeploy
+- [ ] Article page still exists at URL (returns 404 after deploy)
 
-Track what actually matters:
-
-- Qualified profile visits (from recruiters, founders, operators)
-- Résumé downloads or views
-- Meaningful conversations started
-- Interview requests
-- Evidence your thinking resonated
-
-Do NOT optimize only for:
-- Impressions or page views alone
-- Social media vanity metrics
-- SEO rankings without qualified visitors
+### Revert Deployment
+- [ ] Use Git to revert: `git revert HEAD`
+- [ ] Push revert: `git push origin main`
+- [ ] Netlify redeploys previous version
 
 ---
 
-**Remember**: Publish on your website first. Distribution is secondary. Your portfolio is the source of truth.
+## Checklist for Updates
+
+If updating an existing published article:
+
+- [ ] Content changes reviewed
+- [ ] `dateModified` updated in meta.json
+- [ ] `datePublished` unchanged
+- [ ] Slug unchanged (or redirect set up)
+- [ ] Rebuilt and validated
+- [ ] Redeployed
+- [ ] Live site checked
+- [ ] External drafts marked "needs-update" if necessary
+
+---
+
+## Quick Command Reference
+
+```bash
+# Create new article
+npm run new-article
+
+# Build site
+npm run build
+
+# Validate
+npm run validate
+
+# Preview locally
+npm run preview
+
+# Deploy (if using Git)
+git add .
+git commit -m "Publish article: {title}"
+git push origin main
+```
+
+---
+
+## Notes
+
+- **Website first**: Always publish on your website before external channels
+- **Verify live**: Check the live URL before sharing externally
+- **Source of truth**: Your website is the canonical source
+- **Distribution is manual**: Review and approve each platform draft before posting
+- **Logs are local**: Keep publishing logs updated for your records
+
+---
+
+**Related Guides**:
+- [Editing Guide](EDITING-GUIDE.md) — How to change content
+- [Platform Guide](PLATFORM-GUIDE.md) — External publishing strategies
+- [SEO Guide](SEO-GUIDE.md) — Search optimization
+- [Deployment Guide](DEPLOYMENT.md) — Deployment instructions

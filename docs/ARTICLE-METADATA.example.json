@@ -1,0 +1,47 @@
+{
+  "id": "revenue-tree",
+  "title": "Revenue Tree: Breaking Down Growth Into Measurable Levers",
+  "shortTitle": "Revenue Tree: users × frequency × value",
+  "slug": "Revenue-Tree",
+  "topic": "Growth",
+  "eyebrow": "Growth · Chapter 02",
+  "description": "Learn how to decompose revenue into actionable metrics using a revenue tree framework, with real examples and measurement strategies.",
+  "lead": "When growth slows, a revenue tree shows you which lever to pull first.",
+  "readingTime": 6,
+  "status": "published",
+  "datePublished": "2026-10-15T10:00:00.000Z",
+  "dateModified": "2026-10-22T14:30:00.000Z",
+  "chapterNumber": 2,
+  "partNumber": 2,
+  "canonical": "https://vairagakbari.in/article/Revenue-Tree/",
+  "image": "/assets/articles/revenue-tree/revenue-tree-diagram.png",
+  "imageAlt": "Revenue tree diagram showing users multiplied by frequency multiplied by average value",
+  "sources": [
+    {
+      "text": "Reforge's Growth Framework",
+      "url": "https://www.reforge.com/growth-series"
+    },
+    {
+      "text": "Brian Balfour on Unit Economics",
+      "url": "https://brianbalfour.com/essays/unit-economics"
+    }
+  ],
+  "relatedArticles": ["job-to-be-done", "aarrr-funnel"],
+  "tableOfContents": [
+    { "id": "what-is-revenue-tree", "title": "What is a revenue tree?" },
+    { "id": "decomposition", "title": "Breaking down the formula" },
+    { "id": "example", "title": "A SaaS example" },
+    { "id": "measurement", "title": "What to measure" },
+    { "id": "sources", "title": "Sources" }
+  ],
+  "_comments": {
+    "status": "draft | review | published",
+    "datePublished": "Set when first published. Do not change on edits. ISO 8601 format.",
+    "dateModified": "Update when meaningful editorial changes are made. ISO 8601 format.",
+    "readingTime": "Minutes. Calculated from body.html if null. Override manually if needed.",
+    "canonical": "Must be absolute HTTPS URL. No fragment. Must match slug.",
+    "image": "Optional. Absolute path from site root. Supply dimensions in img tag.",
+    "relatedArticles": "Array of article IDs (not slugs).",
+    "tableOfContents": "Each id must match a section id in body.html"
+  }
+}

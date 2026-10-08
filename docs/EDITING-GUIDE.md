@@ -1,242 +1,294 @@
 # Editing Guide
 
-This guide explains how to edit content on your portfolio website. All content lives in plain JSON and HTML files that you can edit with any text editor.
+This guide explains what you need to change and how to do it. Most updates involve editing JSON files or HTML fragments—no need to touch generated output.
+
+---
+
+## What Updates Automatically
+
+When you run `npm run build`, these are generated for you:
+
+- ✅ Homepage article list
+- ✅ Article archive page
+- ✅ Book chapter links
+- ✅ Navigation from `config/navigation.json`
+- ✅ Social links from `config/site.json`
+- ✅ Metadata rendering (title, description, Open Graph, JSON-LD)
+- ✅ Reading time calculation (if not manually set)
+- ✅ Sitemap and robots.txt
+- ✅ Related article links (from article IDs)
+
+You should NOT manually edit files in `dist/`. Edit source files, then build.
 
 ---
 
 ## Quick Reference
 
-| Task | Files to Edit |
-|------|---------------|
-| Update your intro or work experience | `content/profile.json` |
-| Add a new article | Run `npm run new-article`, then edit the generated files |
-| Edit an existing article | Edit `content/articles/[slug]/body.html` and `meta.json` |
-| Change site name or domain | `config/site.json` |
-| Add/remove navigation links | `config/navigation.json` |
-| Reorganize the book | `content/book.json` |
-| Update résumé or portrait | Replace files in `dist/assets/` |
-
-After any edits: run `npm run build` to regenerate the site.
+| What You Want to Change | File to Edit |
+|-------------------------|-------------|
+| Your name, role, location | `config/site.json` |
+| Social profile links | `config/site.json` |
+| Contact email | `config/site.json` |
+| Domain or canonical URL base | `config/site.json` |
+| Navigation menu | `config/navigation.json` |
+| Intro and work examples | `content/profile.json` |
+| Toolkit (in practice / learning) | `content/profile.json` |
+| Book structure and chapter order | `content/book.json` |
+| Create a new article | Run `npm run new-article` |
+| Edit article content | `content/articles/{slug}/body.html` |
+| Edit article metadata | `content/articles/{slug}/meta.json` |
+| Publish a draft article | Change `"status": "draft"` to `"status": "published"` in `meta.json` |
+| Add a chapter to the book | Add entry to `content/book.json` |
+| Change publication date | Update `datePublished` or `dateModified` in `meta.json` |
+| Update résumé | Replace `dist/assets/vairag-akbari-resume.pdf` |
+| Change portrait image | Replace `dist/assets/vairag-akbari.webp` |
 
 ---
 
-## 1. Update Your Profile
+## 1. Update Profile and Role
 
-**File:** `content/profile.json`
+**File**: `config/site.json`
 
-### Change your headline or intro
+Change your name, role, description, or location:
+
 ```json
 {
-  "eyebrow": "Bengaluru, India · Open to opportunities",
-  "headline": "Your headline here",
-  "lead": "Your intro paragraph",
-  ...
-}
-```
-
-### Add or edit work experience
-```json
-{
-  "work": [
-    {
-      "meta": "COMPANY · DATES",
-      "title": "What you did",
-      "description": "Details about the work",
-      "tags": ["Tag 1", "Tag 2"]
-    }
-  ]
-}
-```
-
-- Keep work items in reverse chronological order (newest first)
-- Tags should be 1-3 words each
-- Be specific about what you built/owned/achieved
-
-### Update toolkit
-```json
-{
-  "toolkit": {
-    "inPractice": "Tools and skills you use regularly",
-    "learning": "What you're actively learning",
-    "interest": "Your interest area"
+  "name": "Vairag Akbari",
+  "domain": "https://vairagakbari.in",
+  "description": "Founder's office, strategy, growth & product operator",
+  "author": {
+    "name": "Vairag Akbari",
+    "url": "https://vairagakbari.in/",
+    "role": "Strategy, growth & product operator",
+    "location": "Bengaluru, India"
   }
 }
 ```
 
+**File**: `content/profile.json`
+
+Update introduction, work examples, and toolkit:
+
+```json
+{
+  "eyebrow": "Bengaluru, India · Open to opportunities",
+  "headline": "Hi, I'm Vairag.<br>I connect <em class=\"accent\">customer needs</em><br>to business decisions.",
+  "lead": "I work on growth and operations at Jumbo Homes...",
+  "work": [
+    {
+      "meta": "JUMBO HOMES · JUNE 2026–PRESENT",
+      "title": "Owning a property sales pipeline",
+      "description": "Supply onboarding, buyer qualification...",
+      "tags": ["Pipeline management", "Customer discovery"]
+    }
+  ],
+  "toolkit": {
+    "inPractice": "Google Sheets, Excel, Twenty CRM...",
+    "learning": "SQL, Mixpanel, product analytics..."
+  }
+}
+```
+
+After editing, run:
+```bash
+npm run build
+```
+
 ---
 
-## 2. Create a New Article
+## 2. Add or Update Social Links
 
-### Using the command
-```cmd
+**File**: `config/site.json`
+
+Edit the `social` section. Only include links you've verified. Set to `null` if you don't have that profile:
+
+```json
+{
+  "social": {
+    "linkedin": "https://www.linkedin.com/in/vairag-akbari",
+    "github": null,
+    "twitter": "https://x.com/vairaglife",
+    "instagram": "https://instagram.com/growthwithvairag",
+    "substack": null,
+    "medium": null,
+    "geeksforgeeks": null,
+    "leetcode": null,
+    "threads": null,
+    "top-mate": null
+  }
+}
+```
+
+The build automatically shows only verified links and hides null entries.
+
+---
+
+## 3. Update Navigation Menu
+
+**File**: `config/navigation.json`
+
+```json
+{
+  "main": [
+    { "label": "Work", "href": "/#work" },
+    { "label": "Articles", "href": "/article/" },
+    { "label": "The book", "href": "/book/" },
+    { "label": "Contact", "href": "/#contact" }
+  ],
+  "footer": [
+    { "label": "LinkedIn", "href": "https://www.linkedin.com/in/vairag-akbari" }
+  ],
+  "copyright": "© 2026 Vairag Akbari"
+}
+```
+
+Update labels, hrefs, and copyright as needed.
+
+---
+
+## 4. Create a New Article
+
+Run the article creation script:
+
+```bash
 npm run new-article
 ```
 
-This will:
-1. Ask for article title, slug, description, and topic
-2. Create `content/articles/[slug]/` folder
-3. Generate `meta.json` and `body.html` templates
-4. Create an `images/` folder for article assets
+Answer the prompts:
+- **Title**: Full article title
+- **Slug**: URL-safe identifier (lowercase-with-hyphens)
+- **Description**: Short summary for meta tags and listings
+- **Topic**: Product, Growth, Analytics, etc.
 
-### Article slug rules
-- Lowercase letters, numbers, and hyphens only
-- No spaces or special characters
-- Example: `revenue-tree` not `Revenue Tree!`
-- Slug becomes part of URL: `/article/revenue-tree/`
+This creates:
+```
+content/articles/{slug}/
+├── meta.json       # Metadata
+├── body.html       # Content
+└── images/         # For article images
+```
+
+The article starts as `"status": "draft"` and won't appear publicly until you change it to `"published"`.
 
 ---
 
-## 3. Write Article Content
+## 5. Edit Article Content
 
-### Edit the article body
+**File**: `content/articles/{slug}/body.html`
 
-**File:** `content/articles/[slug]/body.html`
-
-Write semantic HTML with sections:
+Write your article using semantic HTML:
 
 ```html
 <section id="introduction">
   <h2>Introduction</h2>
-  <p>Your opening paragraph.</p>
-</section>
-
-<section id="key-concept">
-  <h2>A Key Concept</h2>
-  <p>Explanation here.</p>
+  <p>Write your content here.</p>
   
   <div class="callout">
-    <strong>Important note</strong>
-    <p>Highlighted information</p>
+    <strong>Key Takeaway</strong>
+    <p>Use callout boxes for important notes.</p>
   </div>
 </section>
-```
 
-**Available styles:**
-- `<div class="callout">` — Highlighted box with blue border
-- `<div class="flow">` — Vertical stack of boxes (for processes/flows)
-- `<em class="accent">` — Blue accent text
-- `<ul>` and `<ol>` — Bulleted and numbered lists
+<section id="next-topic">
+  <h2>Your Next Section</h2>
+  <p>Continue here.</p>
+</section>
 
-### Update article metadata
-
-**File:** `content/articles/[slug]/meta.json`
-
-```json
-{
-  "id": "your-article-id",
-  "title": "Full Article Title",
-  "shortTitle": "Shorter version for links",
-  "slug": "url-slug",
-  "topic": "Product",
-  "description": "One-line summary (for meta description)",
-  "lead": "Opening statement shown below title",
-  "status": "draft",
-  "tableOfContents": [
-    { "id": "introduction", "title": "Introduction" },
-    { "id": "key-concept", "title": "A Key Concept" }
-  ],
-  "sources": [
-    { 
-      "text": "Source name",
-      "url": "https://example.com"
-    }
-  ]
-}
-```
-
-**Important fields:**
-- `id` — Stable identifier, use lowercase-with-hyphens
-- `slug` — URL path component (should match folder name)
-- `status` — `"draft"` (excluded from site) or `"published"` (included)
-- `canonical` — Must match your domain + slug pattern
-- `tableOfContents` — Each `id` must match a section `id=` in body.html
-
-### Add section anchors
-
-Every major section needs an `id` attribute:
-
-```html
-<section id="my-section-name">
-  <h2>Section Title</h2>
-  ...
+<section id="sources">
+  <h2>Sources</h2>
+  <p>List references here.</p>
 </section>
 ```
 
-Then reference it in `meta.json`:
+**Important**: Each section needs an `id` that matches an entry in `tableOfContents` in `meta.json`.
+
+---
+
+## 6. Edit Article Metadata
+
+**File**: `content/articles/{slug}/meta.json`
+
+Example:
+
 ```json
 {
+  "id": "job-to-be-done",
+  "title": "Jobs to Be Done: A Practical Framework with a Real-Estate Example",
+  "shortTitle": "Jobs to Be Done: start with the progress",
+  "slug": "Job-To-Be-Done",
+  "topic": "Product",
+  "eyebrow": "Product · Chapter 01",
+  "description": "Learn Jobs to Be Done through a property-search example...",
+  "lead": "A useful way to move from \"Who is our customer?\" to \"What are they trying to change?\"",
+  "readingTime": 5,
+  "status": "published",
+  "datePublished": "2026-10-01T10:00:00.000Z",
+  "dateModified": "2026-10-08T14:30:00.000Z",
+  "chapterNumber": 1,
+  "partNumber": 1,
+  "canonical": "https://vairagakbari.in/article/Job-To-Be-Done/",
+  "image": null,
+  "imageAlt": null,
+  "sources": [
+    {
+      "text": "Christensen Institute's Jobs to Be Done theory",
+      "url": "https://www.christenseninstitute.org/theory/jobs-to-be-done/"
+    }
+  ],
+  "relatedArticles": [],
   "tableOfContents": [
-    { "id": "my-section-name", "title": "Section Title" }
+    { "id": "what-is-jtbd", "title": "What is JTBD?" },
+    { "id": "sub-topic", "title": "The three dimensions" }
   ]
 }
 ```
 
-Links like `/article/slug/#my-section-name` will jump to that section.
+### Key Fields:
+
+- **id**: Stable identifier (never change once published)
+- **title**: Full title
+- **shortTitle**: Shorter version for listings (optional)
+- **slug**: URL segment (preserve if already published)
+- **status**: `"draft"`, `"review"`, or `"published"`
+- **datePublished**: Set when first published. Do NOT change on edits.
+- **dateModified**: Update when you make meaningful changes.
+- **canonical**: Must match `{domain}/article/{slug}/`
+- **tableOfContents**: Must match section IDs in `body.html`
+- **relatedArticles**: Array of article **IDs** (not slugs)
+
+**Reading time**: Leave as `null` to calculate automatically, or set manually.
 
 ---
 
-## 4. Publish an Article
+## 7. Publish a Draft Article
 
-1. **Write and review** your content in `body.html`
-2. **Update metadata** in `meta.json`
-3. **Change status** to `"published"`:
+1. Open `content/articles/{slug}/meta.json`
+2. Change `"status": "draft"` to `"status": "published"`
+3. Set `datePublished` to current date in ISO 8601 format:
    ```json
-   {
-     "status": "published"
-   }
+   "datePublished": "2026-10-15T10:00:00.000Z"
    ```
-4. **Set publication date** (optional but recommended):
-   ```json
-   {
-     "datePublished": "2026-09-24"
-   }
-   ```
-5. **Build the site**: `npm run build`
-6. **Validate**: `npm run validate`
-7. **Preview locally**: `npm run preview`
-8. **Deploy**: `git add . && git commit -m "Add article: Title" && git push`
+4. Run `npm run build`
+5. Verify in `dist/article/{slug}/index.html`
+6. Deploy
 
 ---
 
-## 5. Edit an Existing Article
+## 8. Edit an Existing Article
 
-### Minor updates (typos, clarifications)
-1. Edit `content/articles/[slug]/body.html`
-2. Run `npm run build`
-3. Deploy
-
-Do **not** change `datePublished` for minor fixes.
-
-### Substantial changes
-1. Edit `body.html` and/or `meta.json`
-2. Update `dateModified` in meta.json:
-   ```json
-   {
-     "dateModified": "2026-10-15"
-   }
-   ```
-3. Run `npm run build`
-4. Deploy
-
-### Change article URL (slug)
-**Be very careful** — this breaks existing links unless you add a redirect.
-
-1. Rename the article folder: `content/articles/new-slug/`
-2. Update `slug` and `canonical` in `meta.json`
-3. Add a redirect in `dist/_redirects`:
-   ```
-   /article/old-slug/  /article/new-slug/  301
-   ```
-4. Update any internal links referencing the old slug
-5. Build and deploy
+1. Make changes to `content/articles/{slug}/body.html` or `meta.json`
+2. Update `dateModified` to current date (only for meaningful editorial changes)
+3. Keep `datePublished` unchanged
+4. Keep `slug` unchanged (or set up redirect if you must change it)
+5. Run `npm run build`
 
 ---
 
-## 6. Add Article to the Book
+## 9. Add or Move a Book Chapter
 
-**File:** `content/book.json`
+**File**: `content/book.json`
 
-Find the appropriate part and chapter list:
+To add a published article to the book, reference it by **article ID**:
 
 ```json
 {
@@ -248,10 +300,6 @@ Find the appropriate part and chapter list:
         {
           "articleId": "job-to-be-done",
           "status": "published"
-        },
-        {
-          "articleId": "your-new-article-id",
-          "status": "published"
         }
       ]
     }
@@ -259,154 +307,163 @@ Find the appropriate part and chapter list:
 }
 ```
 
-- Use the article's `id` field (not slug)
-- Order determines display order
-- Status should match article meta.json
-
-### Planned chapters (not yet written)
+To show a planned chapter (not yet written):
 
 ```json
 {
-  "title": "Revenue tree analysis",
+  "title": "Revenue tree: users × frequency × value",
   "status": "planned"
 }
 ```
 
-These appear as plain text, not links.
+The build will:
+- Link published chapters to their article pages
+- Show planned chapters as plain text with status
+
+**Do not duplicate article text into the book.** The book links to article pages.
 
 ---
 
-## 7. Update Résumé or Portrait
+## 10. Change URLs or Slugs (Advanced)
 
-### Update résumé PDF
-1. Replace `dist/assets/vairag-akbari-resume.pdf` with your new PDF
-2. Keep the same filename, or update `profile.json`:
-   ```json
-   {
-     "resumePdf": "/assets/your-resume.pdf"
-   }
+⚠️ **Avoid changing slugs for published articles.** Old links will break.
+
+If you must change a slug:
+
+1. Update `slug` in `meta.json`
+2. Update `canonical` to match new slug
+3. Update any `relatedArticles` references in other articles
+4. Set up a permanent redirect from old URL to new URL (Netlify handles this via `_redirects`)
+5. Add redirect rule:
    ```
-3. Deploy
-
-### Update portrait image
-1. Replace `dist/assets/vairag-akbari.webp`
-2. Keep aspect ratio approximately 4:5 (portrait orientation)
-3. Optimize the image (WebP format recommended)
-4. Update `profile.json` if you change the filename or alt text
+   /article/old-slug/  /article/new-slug/  301
+   ```
+6. Update internal links across the site
+7. Run `npm run build`
 
 ---
 
-## 8. Change Site Settings
+## 11. Update Résumé or Portrait
 
-### Domain or site name
+**Résumé**: Replace `dist/assets/vairag-akbari-resume.pdf` with your updated PDF.
 
-**File:** `config/site.json`
-
-```json
-{
-  "name": "Your Name",
-  "domain": "https://yoursite.com",
-  "contact": {
-    "email": "you@example.com"
-  }
-}
-```
-
-After changing domain, update all canonical URLs in article meta.json files.
-
-### Social profiles
-
-**File:** `config/site.json`
+**Portrait**: Replace `dist/assets/vairag-akbari.webp` with your new image. Keep filename or update `profile.json`:
 
 ```json
 {
-  "social": {
-    "linkedin": "https://www.linkedin.com/in/your-profile",
-    "twitter": "https://twitter.com/yourhandle",
-    "github": null
-  }
+  "portraitImage": "/assets/vairag-akbari.webp",
+  "portraitAlt": "Portrait of Vairag Akbari in a black suit"
 }
 ```
 
-- Use full HTTPS URLs
-- Set to `null` to hide a profile (it won't appear on site)
-- Only add profiles you actually control
-
-### Navigation
-
-**File:** `config/navigation.json`
-
-```json
-{
-  "main": [
-    { "label": "Work", "href": "/#work" },
-    { "label": "Articles", "href": "/article/" }
-  ],
-  "footer": [
-    { "label": "LinkedIn", "href": "https://..." }
-  ]
-}
-```
+Use WebP format for best performance. Recommended size: 928×1152 or similar high-quality portrait crop.
 
 ---
 
-## 9. Workflow Summary
+## 12. Add Article Images
 
-### Every time you edit content
+Place images in `content/articles/{slug}/images/` and reference them in `body.html`:
 
-```cmd
-npm run build
-npm run validate
-npm run preview
+```html
+<img src="/assets/articles/{slug}/my-diagram.png" 
+     alt="Revenue tree diagram showing decomposition" 
+     width="800" 
+     height="600">
 ```
 
-- **Build** regenerates HTML from your content
-- **Validate** checks for errors (broken links, missing fields, etc.)
-- **Preview** lets you test locally before deploying
+Or set a featured image in `meta.json`:
 
-### When ready to deploy
-
-```cmd
-git add .
-git commit -m "Descriptive message"
-git push origin main
+```json
+{
+  "image": "/assets/articles/revenue-tree/revenue-tree-diagram.png",
+  "imageAlt": "Revenue tree diagram showing users multiplied by frequency multiplied by value"
+}
 ```
 
-Netlify automatically deploys changes pushed to the main branch.
+Copy images to `dist/assets/articles/{slug}/` during build or manually.
 
 ---
 
-## 10. Common Issues
+## 13. Workflow Summary
 
-### Article not appearing on site
-- Check `status` is `"published"` in meta.json
-- Run `npm run build` again
-- Check `npm run validate` for errors
+### For a New Article:
 
-### Broken section links
-- Ensure section `id="something"` matches tableOfContents entry
-- IDs are case-sensitive
-- Use lowercase-with-hyphens
+1. `npm run new-article`
+2. Edit `content/articles/{slug}/body.html`
+3. Edit `content/articles/{slug}/meta.json` (add tableOfContents, sources)
+4. Change status to `"published"` when ready
+5. Add to `content/book.json` if part of book
+6. `npm run build`
+7. `npm run validate`
+8. `npm run preview` to check locally
+9. Deploy
 
-### Build errors
-- Check JSON syntax (use a JSON validator)
-- Ensure all required fields are present in meta.json
-- Run `npm run validate` to see specific errors
+### For Editing Existing Content:
 
-### Changes not showing after deploy
-- Clear browser cache (Ctrl+Shift+R / Cmd+Shift+R)
-- Check Netlify deploy log
-- Verify you pushed to the correct branch
+1. Edit source file (profile.json, meta.json, body.html, etc.)
+2. Update `dateModified` if editing article
+3. `npm run build`
+4. `npm run validate`
+5. Deploy
+
+---
+
+## 14. Common Mistakes to Avoid
+
+❌ **Don't edit files in `dist/` directly** — they'll be overwritten on next build
+
+❌ **Don't change `datePublished`** on edits — only `dateModified`
+
+❌ **Don't change `id` or `slug`** after publishing — breaks links
+
+❌ **Don't add fragments to canonical URLs** — `canonical` should not have `#section`
+
+❌ **Don't forget to update `tableOfContents`** when adding sections
+
+❌ **Don't reference missing article IDs** in `relatedArticles` or book chapters
+
+❌ **Don't commit sensitive files** — no credentials, API keys, or private notes in `dist/`
+
+✅ **Do run `npm run validate`** before deploying
+
+✅ **Do test locally** with `npm run preview`
+
+✅ **Do keep `distribution/` folder private** — never copy to `dist/`
+
+---
+
+## 15. File Locations Quick Map
+
+```
+config/
+  site.json          → Site identity, domain, social, author
+  navigation.json    → Navigation menu and footer
+
+content/
+  profile.json       → Homepage intro, work, toolkit
+  book.json          → Book structure and chapter order
+  articles/{slug}/
+    meta.json        → Article metadata
+    body.html        → Article content
+    images/          → Article images
+
+dist/
+  [generated]        → Do not edit directly
+
+distribution/
+  [private]          → Platform drafts, never deployed
+```
 
 ---
 
 ## Need Help?
 
-- Run `npm run validate` to check for errors
-- Check [PUBLISHING-CHECKLIST.md](PUBLISHING-CHECKLIST.md) before deploying
-- Review [docs/](.) for other guides
-- Contact: vairag.techwork@gmail.com
+- Run `npm run validate` to check for common issues
+- Check `docs/PUBLISHING-CHECKLIST.md` for pre-deployment steps
+- See `docs/PLATFORM-GUIDE.md` for external publishing
+- See `docs/SEO-GUIDE.md` for search optimization
+- See `docs/DEPLOYMENT.md` for deployment instructions
 
 ---
 
-**Remember:** Always build, validate, and preview before deploying!
+**Next**: [Publishing Checklist](PUBLISHING-CHECKLIST.md)
