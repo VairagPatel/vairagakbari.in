@@ -1,0 +1,276 @@
+{
+  "id": "rydex",
+  "title": "Rydex — Vehicle Rental & Ride Booking Platform",
+  "slug": "rydex",
+  "tagline": "Geospatial marketplace with booking orchestration and partner onboarding",
+  "status": "Implemented",
+  "date": "April 2026",
+  "datePublished": "2026-04",
+  "canonical": "https://vairagakbari.in/projects/rydex/",
+  "description": "Built a comprehensive vehicle rental and ride-booking platform supporting vehicle discovery, bookings, partner onboarding, payments with commission calculations, identity verification, real-time tracking, and communication.",
+  "problem": "Vehicle rental and ride-booking marketplaces require complex orchestration: users need to discover nearby vehicles, partners need onboarding and verification, bookings need payment and commission handling, rides need real-time tracking, and all parties need secure communication.",
+  "solution": "Built a full-stack Next.js marketplace with geospatial vehicle discovery using GeoJSON, eight-step partner onboarding with video KYC, automated commission calculations, real-time ride tracking, OTP-based confirmations, and AI-powered messaging.",
+  "technologies": {
+    "frontend": ["React.js", "Next.js 14", "TypeScript", "Redux Toolkit", "Tailwind CSS"],
+    "backend": ["Next.js API Routes", "MongoDB", "Mongoose", "NextAuth.js"],
+    "geospatial": ["Leaflet", "GeoJSON", "Geolocation APIs", "Radius calculations"],
+    "realtime": ["Socket.IO", "Live tracking", "Chat"],
+    "integrations": ["Razorpay", "ZegoCloud Video KYC", "Cloudinary", "Google OAuth", "Gemini AI"],
+    "other": ["JWT", "RBAC", "OTP verification", "Commission engine"]
+  },
+  "metrics": {
+    "apiRoutes": 43,
+    "pages": 15,
+    "databaseModels": 6,
+    "onboardingSteps": 8,
+    "discoveryRadius": "10km",
+    "platformCommission": "10%"
+  },
+  "roles": [
+    {
+      "name": "User",
+      "features": [
+        "Search vehicles by location and type",
+        "View nearby vehicles within 10km on interactive map",
+        "Filter by vehicle category, price, availability",
+        "Book vehicles with date/time selection",
+        "Make payments via Razorpay",
+        "Track ride in real-time",
+        "Chat with partner using AI-assisted messaging",
+        "Confirm pickup with OTP",
+        "Rate and review completed rides"
+      ]
+    },
+    {
+      "name": "Partner",
+      "features": [
+        "Complete eight-step onboarding with video KYC",
+        "Upload vehicle details and photos",
+        "Manage availability and pricing",
+        "Accept or decline booking requests",
+        "Navigate to pickup location",
+        "Confirm pickup with customer OTP",
+        "Update ride status in real-time",
+        "Confirm drop with OTP",
+        "View earnings with platform commission breakdown",
+        "Track payment history"
+      ]
+    },
+    {
+      "name": "Admin",
+      "features": [
+        "Review and approve partner applications",
+        "Verify video KYC submissions",
+        "Manage vehicle listings and categories",
+        "Monitor active bookings",
+        "Handle disputes and support",
+        "Configure platform commission rates",
+        "Generate reports and analytics",
+        "Manage user and partner accounts"
+      ]
+    }
+  ],
+  "bookingLifecycle": [
+    {
+      "stage": "Search Vehicle",
+      "description": "User enters location; GeoJSON query finds vehicles within 10km radius using geospatial indexing"
+    },
+    {
+      "stage": "Select",
+      "description": "User views vehicle details, partner rating, pricing, and availability"
+    },
+    {
+      "stage": "Book",
+      "description": "User selects dates/times, confirms booking request"
+    },
+    {
+      "stage": "Pay",
+      "description": "Razorpay payment with HMAC verification; amount includes platform commission"
+    },
+    {
+      "stage": "Partner Confirmation",
+      "description": "Partner receives notification, accepts or declines booking"
+    },
+    {
+      "stage": "Pickup OTP",
+      "description": "User receives OTP; partner confirms pickup by entering OTP"
+    },
+    {
+      "stage": "Live Ride",
+      "description": "Socket.IO broadcasts real-time location; user tracks ride on map"
+    },
+    {
+      "stage": "Drop OTP",
+      "description": "Partner enters drop OTP to complete ride; triggers payment settlement"
+    },
+    {
+      "stage": "Complete",
+      "description": "Booking marked complete; commission calculated; earnings updated; user can rate"
+    }
+  ],
+  "partnerOnboarding": [
+    {
+      "step": 1,
+      "title": "Personal Information",
+      "description": "Name, contact details, address, date of birth"
+    },
+    {
+      "step": 2,
+      "title": "Identity Verification",
+      "description": "Government ID upload and verification"
+    },
+    {
+      "step": 3,
+      "title": "Video KYC",
+      "description": "ZegoCloud video call with admin for identity verification"
+    },
+    {
+      "step": 4,
+      "title": "Vehicle Registration",
+      "description": "Vehicle registration documents and verification"
+    },
+    {
+      "step": 5,
+      "title": "Vehicle Details",
+      "description": "Make, model, year, category, seating capacity"
+    },
+    {
+      "step": 6,
+      "title": "Vehicle Photos",
+      "description": "Upload vehicle photos to Cloudinary"
+    },
+    {
+      "step": 7,
+      "title": "Pricing & Availability",
+      "description": "Set rental rates and availability schedule"
+    },
+    {
+      "step": 8,
+      "title": "Bank Details",
+      "description": "Bank account for earnings settlement"
+    }
+  ],
+  "architecture": {
+    "description": "Rydex uses Next.js 14 with TypeScript for full-stack development, MongoDB with geospatial indexing for vehicle discovery, Socket.IO for real-time features, and integrates services for payments, video KYC, and AI assistance.",
+    "layers": [
+      {
+        "name": "Frontend Application",
+        "tech": "React.js, Next.js 14, TypeScript, Redux Toolkit",
+        "responsibilities": ["User, partner, and admin interfaces", "Interactive maps", "Real-time tracking", "Chat system", "Multi-step onboarding"]
+      },
+      {
+        "name": "API Routes",
+        "tech": "Next.js API Routes, 43 endpoints",
+        "responsibilities": ["Authentication & authorization", "Vehicle CRUD", "Geospatial queries", "Booking management", "Payment processing", "Commission calculations", "Onboarding workflows"]
+      },
+      {
+        "name": "Database",
+        "tech": "MongoDB, Mongoose, 6 models",
+        "responsibilities": ["User & partner profiles", "Vehicle listings with geospatial indexes", "Booking records", "Payment & earnings", "Reviews & ratings", "Onboarding status"]
+      },
+      {
+        "name": "Geospatial Layer",
+        "tech": "GeoJSON, Leaflet, MongoDB geospatial indexes",
+        "responsibilities": ["Vehicle proximity search", "Radius-based discovery", "Route visualization", "Location tracking"]
+      },
+      {
+        "name": "Real-Time Layer",
+        "tech": "Socket.IO",
+        "responsibilities": ["Live ride tracking", "Instant messaging", "Booking notifications", "Status updates"]
+      },
+      {
+        "name": "External Services",
+        "tech": "Razorpay, ZegoCloud, Cloudinary, Gemini AI",
+        "responsibilities": ["Payment processing", "Video KYC verification", "Image storage", "AI chat assistance"]
+      }
+    ]
+  },
+  "keyFeatures": [
+    {
+      "title": "Geospatial Vehicle Discovery",
+      "description": "MongoDB 2dsphere index enables efficient proximity queries. GeoJSON stores vehicle locations; Leaflet displays results on interactive map. 10km radius search using $near operator."
+    },
+    {
+      "title": "Eight-Step Partner Onboarding",
+      "description": "Progressive workflow guides partners through registration. Each step validates before advancing. ZegoCloud video KYC provides real-time identity verification with admin."
+    },
+    {
+      "title": "Platform Commission Engine",
+      "description": "10% platform commission calculated on each booking. Earnings split: user payment → platform commission → partner earnings. Real-time calculation and transparent display."
+    },
+    {
+      "title": "OTP-Based Confirmations",
+      "description": "Two-stage verification: pickup OTP confirms ride start; drop OTP confirms completion. Prevents fraud and creates audit trail."
+    },
+    {
+      "title": "Real-Time Ride Tracking",
+      "description": "Socket.IO rooms per ride. Partner app broadcasts location updates; user sees live position on map. Optimized update frequency balances accuracy and performance."
+    },
+    {
+      "title": "Video KYC Integration",
+      "description": "ZegoCloud enables real-time video calls between partner and admin for identity verification. Records verification status and timestamp."
+    }
+  ],
+  "engineeringDecisions": [
+    {
+      "decision": "GeoJSON and MongoDB 2dsphere index for vehicle discovery",
+      "rationale": "Native geospatial support in MongoDB. 2dsphere index enables efficient proximity queries. GeoJSON is standard for geographic data.",
+      "tradeoffs": "MongoDB geospatial features are powerful but limited compared to PostGIS. For current scale, MongoDB is sufficient."
+    },
+    {
+      "decision": "Multi-step onboarding workflow with state machine",
+      "rationale": "Complex onboarding requires progressive disclosure and validation. State machine ensures proper sequence and prevents skipping steps.",
+      "tradeoffs": "More complex than single form, but significantly better UX and data quality."
+    },
+    {
+      "decision": "Platform commission calculated at booking time",
+      "rationale": "Commission rate might change; calculating and storing at booking prevents historical data issues. Clear separation of user payment, commission, and partner earnings.",
+      "tradeoffs": "Stored calculations use more space but provide accuracy and audit trail."
+    },
+    {
+      "decision": "ZegoCloud for video KYC",
+      "rationale": "Specialized service handles video infrastructure complexity. Reliable video quality and recording capabilities.",
+      "tradeoffs": "Third-party dependency and cost; considered building custom but KYC reliability is critical."
+    },
+    {
+      "decision": "Six Mongoose models for data separation",
+      "rationale": "Clear separation: User, Partner, Vehicle, Booking, Payment, Review. Easier to query and maintain than single combined model.",
+      "tradeoffs": "More models require more joins; used Mongoose populate for relationships."
+    },
+    {
+      "decision": "OTP at both pickup and drop",
+      "rationale": "Two-party verification at critical transitions prevents 'ghost rides' and disputed completions.",
+      "tradeoffs": "Slight UX friction; considered GPS-based completion but OTP is more reliable."
+    }
+  ],
+  "challenges": [
+    {
+      "challenge": "Accurate geospatial search across varying locations",
+      "solution": "Implemented GeoJSON with proper coordinate order (longitude, latitude). Used 2dsphere index. Tested with various radius values to balance coverage and relevance."
+    },
+    {
+      "challenge": "Managing complex booking state across multiple actors",
+      "solution": "State machine with clear transitions: requested → accepted → pickup_confirmed → in_progress → drop_confirmed → completed. Each transition requires specific actor and event."
+    },
+    {
+      "challenge": "Commission calculations and earnings transparency",
+      "solution": "Store commission rate, user payment, commission amount, and partner earning at booking time. Display breakdown clearly in partner dashboard."
+    },
+    {
+      "challenge": "Eight-step onboarding without user fatigue",
+      "solution": "Save progress at each step; allow partial completion; clear progress indicator; estimated time remaining; skip non-critical steps initially."
+    }
+  ],
+  "lessonsLearned": [
+    "Geospatial features require careful index configuration and understanding of coordinate systems",
+    "Multi-step workflows need clear state management and progress indication",
+    "Marketplace platforms require careful balance of user, partner, and platform interests",
+    "Commission and earnings calculations should be transparent and auditable",
+    "Video KYC adds trust but requires reliable infrastructure",
+    "Two-party verification (OTP) significantly reduces disputes and fraud",
+    "Real-time features create better UX but add complexity to testing and debugging"
+  ],
+  "github": "https://github.com/VairagPatel",
+  "demo": null,
+  "screenshots": []
+}

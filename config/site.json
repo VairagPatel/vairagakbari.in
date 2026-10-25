@@ -1,14 +1,15 @@
 {
   "name": "Vairag Akbari",
   "domain": "https://vairagakbari.in",
-  "description": "Founder's office, strategy, growth & product operator",
+  "description": "Forward Deployed Engineer | Full-Stack & AI Builder | Growth & Operations Technologist",
   "language": "en",
   "contact": {
-    "email": "vairag.techwork@gmail.com"
+    "email": "vairag.techwork@gmail.com",
+    "phone": "+91-7016793012"
   },
   "social": {
     "linkedin": "https://www.linkedin.com/in/vairag-akbari",
-    "github": null,
+    "github": "https://github.com/VairagPatel",
     "twitter": "https://x.com/vairaglife",
     "instagram": "https://instagram.com/growthwithvairag",
     "substack": null,
@@ -21,7 +22,7 @@
   "author": {
     "name": "Vairag Akbari",
     "url": "https://vairagakbari.in/",
-    "role": "Strategy, growth & product operator",
+    "role": "Full-Stack Engineer · AI Systems · Product & Growth",
     "location": "Bengaluru, India"
   },
   "favicon": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%232c46de'/%3E%3Ctext x='9' y='43' fill='white' font-family='Georgia' font-size='36'%3Eva%3C/text%3E%3C/svg%3E",

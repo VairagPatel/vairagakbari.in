@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SnapCart — Full-Stack Grocery Delivery Platform | Vairag Akbari</title>
+<meta name="description" content="Built a complete multi-role grocery delivery platform covering customer shopping, inventory management, order processing, payment handling, delivery operations, and real-time communication.">
+<link rel="canonical" href="https://vairagakbari.in/projects/snapcart/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SnapCart — Full-Stack Grocery Delivery Platform">
+<meta property="og:description" content="Built a complete multi-role grocery delivery platform covering customer shopping, inventory management, order processing, payment handling, delivery operations, and real-time communication.">
+<meta property="og:url" content="https://vairagakbari.in/projects/snapcart/">
+
+<meta name="twitter:card" content="summary">
+
+<meta name="theme-color" content="#efeee6">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%232c46de'/%3E%3Ctext x='9' y='43' fill='white' font-family='Georgia' font-size='36'%3Eva%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="/assets/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"SnapCart — Full-Stack Grocery Delivery Platform","url":"https://vairagakbari.in/projects/snapcart/","description":"Built a complete multi-role grocery delivery platform covering customer shopping, inventory management, order processing, payment handling, delivery operations, and real-time communication.","author":{"@type":"Person","name":"Vairag Akbari","url":"https://vairagakbari.in/"},"mainEntityOfPage":"https://vairagakbari.in/projects/snapcart/","datePublished":"2026-04"}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <div class="wrap">
+    <a class="brand" href="/">
+      <span class="mark">va</span>Vairag Akbari
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="/#projects">Projects</a><a href="/#fde">FDE</a><a href="/#experience">Experience</a><a href="/article/">Writing</a><a href="/#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+<main id="main" class="wrap">
+
+<div class="article-head">
+  <p class="eyebrow"><a href="/#projects">Projects</a> / Implemented</p>
+  <h1>SnapCart — Full-Stack Grocery Delivery Platform</h1>
+  <p class="lead">Built a complete multi-role grocery delivery platform covering customer shopping, inventory management, order processing, payment handling, delivery operations, and real-time communication.</p>
+  <p class="meta">April 2026</p>
+</div>
+
+<article class="prose project-detail">
+  
+  
+  <section id="overview">
+    <h2>Problem & Solution</h2>
+    <div class="problem-solution">
+      <div>
+        <h3>Problem</h3>
+        <p>Online grocery delivery requires coordinating multiple stakeholders—customers browsing and ordering, admins managing inventory and orders, and delivery partners fulfilling orders—while ensuring payment security, real-time visibility, and reliable delivery confirmation.</p>
+      </div>
+      <div>
+        <h3>Solution</h3>
+        <p>Built a full-stack Next.js platform with three distinct dashboards, secure payment workflows, real-time delivery tracking using Socket.IO and geolocation, radius-based delivery assignment, and AI-powered communication assistance.</p>
+      </div>
+    </div>
+  </section>
+  
+  
+  <section id="metrics">
+    <h2>Technical Metrics</h2>
+    <div class="metrics-grid">
+      <div class="metric-card"><strong>27</strong><span>API Routes</span></div>
+      <div class="metric-card"><strong>12</strong><span>Pages</span></div>
+      <div class="metric-card"><strong>Multiple</strong><span>Database Models</span></div>
+      <div class="metric-card"><strong>3</strong><span>User Roles</span></div>
+      
+    </div>
+  </section>
+  
+  
+  <section id="technologies">
+    <h2>Technology Stack</h2>
+    <div class="tech-categories">
+      
+        <div class="tech-category">
+          <h4>Frontend</h4>
+          <div class="tech-list">
+            <span class="tech-badge">React.js</span><span class="tech-badge">Next.js 14</span><span class="tech-badge">TypeScript</span><span class="tech-badge">Redux Toolkit</span><span class="tech-badge">Tailwind CSS</span>
+          </div>
+        </div>
+      
+        <div class="tech-category">
+          <h4>Backend</h4>
+          <div class="tech-list">
+            <span class="tech-badge">Next.js API Routes</span><span class="tech-badge">MongoDB</span><span class="tech-badge">Mongoose</span><span class="tech-badge">NextAuth.js</span>
+          </div>
+        </div>
+      
+        <div class="tech-category">
+          <h4>Realtime</h4>
+          <div class="tech-list">
+            <span class="tech-badge">Socket.IO</span><span class="tech-badge">Leaflet</span><span class="tech-badge">Geolocation APIs</span>
+          </div>
+        </div>
+      
+        <div class="tech-category">
+          <h4>Integrations</h4>
+          <div class="tech-list">
+            <span class="tech-badge">Razorpay</span><span class="tech-badge">Cloudinary</span><span class="tech-badge">Google OAuth</span><span class="tech-badge">Gemini AI</span>
+          </div>
+        </div>
+      
+        <div class="tech-category">
+          <h4>Other</h4>
+          <div class="tech-list">
+            <span class="tech-badge">JWT</span><span class="tech-badge">RBAC</span><span class="tech-badge">Email notifications</span><span class="tech-badge">OTP verification</span>
+          </div>
+        </div>
+      
+    </div>
+  </section>
+  
+  
+  <section id="roles">
+    <h2>User Roles & Features</h2>
+    
+      <div class="role-card">
+        <h3>Customer</h3>
+        <ul>
+          <li>Browse products by category</li><li>Add items to cart with Redux state management</li><li>Checkout with address and payment method selection</li><li>Razorpay payment or cash-on-delivery</li><li>Track delivery in real-time on interactive map</li><li>Chat with delivery partner with AI quick-reply suggestions</li><li>Order history and status tracking</li>
+        </ul>
+      </div>
+    
+      <div class="role-card">
+        <h3>Admin</h3>
+        <ul>
+          <li>Manage product inventory and categories</li><li>Upload product images to Cloudinary</li><li>View and manage all orders</li><li>Assign deliveries to available partners</li><li>Monitor delivery status and operations</li><li>Generate reports and analytics</li>
+        </ul>
+      </div>
+    
+      <div class="role-card">
+        <h3>Delivery Partner</h3>
+        <ul>
+          <li>Receive delivery assignments within 10km radius</li><li>View order details and customer location</li><li>Update delivery status in real-time</li><li>Navigate using integrated maps</li><li>Chat with customers</li><li>Confirm delivery with OTP</li><li>Track earnings and delivery history</li>
+        </ul>
+      </div>
+    
+  </section>
+  
+  
+  
+  <section id="lifecycle">
+    <h2>Order Lifecycle</h2>
+    <div class="lifecycle-flow">
+      
+        <div class="lifecycle-stage">
+          <div class="stage-number">1</div>
+          <h4>Browse</h4>
+          <p>Customer browses products by category, views details, and adds items to cart</p>
+        </div>
+        <div class="stage-arrow">→</div>
+      
+        <div class="lifecycle-stage">
+          <div class="stage-number">2</div>
+          <h4>Cart</h4>
+          <p>Redux Toolkit manages cart state, quantities, and total calculations</p>
+        </div>
+        <div class="stage-arrow">→</div>
+      
+        <div class="lifecycle-stage">
+          <div class="stage-number">3</div>
+          <h4>Checkout</h4>
+          <p>Customer enters delivery address and selects payment method</p>
+        </div>
+        <div class="stage-arrow">→</div>
+      
+        <div class="lifecycle-stage">
+          <div class="stage-number">4</div>
+          <h4>Payment</h4>
+          <p>Razorpay integration with server-side HMAC verification or cash-on-delivery option</p>
+        </div>
+        <div class="stage-arrow">→</div>
+      
+        <div class="lifecycle-stage">
+          <div class="stage-number">5</div>
+          <h4>Assignment</h4>
+          <p>Admin assigns order to available delivery partner within 10km radius</p>
+        </div>
+        <div class="stage-arrow">→</div>
+      
+        <div class="lifecycle-stage">
+          <div class="stage-number">6</div>
+          <h4>Live Tracking</h4>
+          <p>Real-time Socket.IO updates show delivery partner location on Leaflet map</p>
+        </div>
+        <div class="stage-arrow">→</div>
+      
+        <div class="lifecycle-stage">
+          <div class="stage-number">7</div>
+          <h4>OTP Confirmation</h4>
+          <p>Delivery partner enters customer OTP to confirm successful delivery</p>
+        </div>
+        <div class="stage-arrow">→</div>
+      
+        <div class="lifecycle-stage">
+          <div class="stage-number">8</div>
+          <h4>Delivered</h4>
+          <p>Order marked complete, email notification sent, status updated</p>
+        </div>
+        
+      
+    </div>
+  </section>
+  
+  
+  
+  
+  <section id="architecture">
+    <h2>System Architecture</h2>
+    <p>SnapCart uses Next.js 14 for both frontend and API routes, MongoDB for data persistence, Socket.IO for real-time features, and integrates third-party services for payments, media, and AI.</p>
+    <div class="architecture-layers">
+      
+        <div class="arch-layer">
+          <h4>Frontend Application</h4>
+          <p class="tech-label">React.js, Next.js 14, TypeScript, Redux Toolkit</p>
+          
+          <ul>
+            <li>User interface for three roles</li><li>Cart state management</li><li>Real-time map updates</li><li>Chat interface</li>
+          </ul>
+        </div>
+      
+        <div class="arch-layer">
+          <h4>API Routes</h4>
+          <p class="tech-label">Next.js API Routes, 27 endpoints</p>
+          
+          <ul>
+            <li>Authentication</li><li>CRUD operations</li><li>Payment processing</li><li>Order management</li><li>Delivery assignment</li>
+          </ul>
+        </div>
+      
+        <div class="arch-layer">
+          <h4>Database</h4>
+          <p class="tech-label">MongoDB, Mongoose</p>
+          
+          <ul>
+            <li>User data</li><li>Product inventory</li><li>Order records</li><li>Delivery assignments</li>
+          </ul>
+        </div>
+      
+        <div class="arch-layer">
+          <h4>Real-Time Layer</h4>
+          <p class="tech-label">Socket.IO, Geolocation APIs</p>
+          
+          <ul>
+            <li>Live location tracking</li><li>Chat messaging</li><li>Delivery status updates</li>
+          </ul>
+        </div>
+      
+        <div class="arch-layer">
+          <h4>External Services</h4>
+          <p class="tech-label">Razorpay, Cloudinary, Gemini AI</p>
+          
+          <ul>
+            <li>Payment processing</li><li>Image storage</li><li>AI-powered chat suggestions</li>
+          </ul>
+        </div>
+      
+    </div>
+  </section>
+  
+  
+  <section id="features">
+    <h2>Key Engineering Features</h2>
+    
+      <div class="feature-card">
+        <h3>Multi-Role Authentication</h3>
+        <p>NextAuth.js with Google OAuth, credentials login, JWT sessions, and role-based access control. Each role has dedicated dashboard and permissions.</p>
+      </div>
+    
+      <div class="feature-card">
+        <h3>Secure Payments</h3>
+        <p>Razorpay integration with server-side payment verification using HMAC signature validation. Supports both online payment and cash-on-delivery.</p>
+      </div>
+    
+      <div class="feature-card">
+        <h3>Real-Time Delivery Tracking</h3>
+        <p>Socket.IO broadcasts delivery partner location updates. Customer sees live position on Leaflet map with route visualization and ETA.</p>
+      </div>
+    
+      <div class="feature-card">
+        <h3>Radius-Based Assignment</h3>
+        <p>Delivery assignments consider partner availability and 10km radius from customer location using geolocation calculations.</p>
+      </div>
+    
+      <div class="feature-card">
+        <h3>AI-Powered Chat</h3>
+        <p>Gemini AI analyzes chat context and suggests quick replies for delivery partners, improving response time and communication quality.</p>
+      </div>
+    
+      <div class="feature-card">
+        <h3>OTP Delivery Confirmation</h3>
+        <p>System generates OTP sent to customer. Delivery partner must enter correct OTP to mark order as delivered, preventing fraud.</p>
+      </div>
+    
+  </section>
+  
+  
+  
+  <section id="decisions">
+    <h2>Engineering Decisions & Tradeoffs</h2>
+    
+      <div class="decision-card">
+        <h4>Next.js for both frontend and API routes</h4>
+        <p><strong>Rationale:</strong> Unified codebase, simplified deployment, built-in API routes, TypeScript support, and excellent developer experience.</p>
+        <p><strong>Tradeoffs:</strong> Couples frontend and backend; alternative would be separate services but adds deployment complexity.</p>
+        
+      </div>
+    
+      <div class="decision-card">
+        <h4>MongoDB with Mongoose</h4>
+        <p><strong>Rationale:</strong> Flexible schema for evolving product and order data. Good fit for document-oriented data like orders with nested items.</p>
+        <p><strong>Tradeoffs:</strong> No complex joins; relationships handled in application layer. Considered PostgreSQL but prioritized flexibility.</p>
+        
+      </div>
+    
+      <div class="decision-card">
+        <h4>Socket.IO for real-time features</h4>
+        <p><strong>Rationale:</strong> Battle-tested WebSocket library with fallback mechanisms, room-based messaging, and straightforward event handling.</p>
+        <p><strong>Tradeoffs:</strong> Requires persistent connection; considered polling but real-time updates were core requirement.</p>
+        
+      </div>
+    
+      <div class="decision-card">
+        <h4>Redux Toolkit for cart state</h4>
+        <p><strong>Rationale:</strong> Cart state needs to be accessible across components; Redux Toolkit provides clean state management with minimal boilerplate.</p>
+        <p><strong>Tradeoffs:</strong> Adds bundle size; considered Context API but Redux DevTools and middleware were valuable.</p>
+        
+      </div>
+    
+      <div class="decision-card">
+        <h4>Server-side payment verification</h4>
+        <p><strong>Rationale:</strong> Security requirement: never trust client-side payment success. HMAC signature validation on server ensures payment integrity.</p>
+        <p><strong>Tradeoffs:</strong> None—this is a security best practice, not an optimization.</p>
+        
+      </div>
+    
+      <div class="decision-card">
+        <h4>OTP-based delivery confirmation</h4>
+        <p><strong>Rationale:</strong> Prevents fraudulent delivery confirmation. Customer receives OTP, partner must enter it, creating two-party verification.</p>
+        <p><strong>Tradeoffs:</strong> Slight UX friction; considered photo proof but OTP is simpler and more reliable.</p>
+        
+      </div>
+    
+  </section>
+  
+  
+  
+  <section id="challenges">
+    <h2>Challenges & Solutions</h2>
+    
+      <div class="challenge-card">
+        <h4>Coordinating real-time location updates across multiple active deliveries</h4>
+        <p><strong>Solution:</strong> Socket.IO rooms per order; only relevant participants receive updates. Geolocation updates throttled to reduce server load.</p>
+      </div>
+    
+      <div class="challenge-card">
+        <h4>Ensuring payment security and handling edge cases</h4>
+        <p><strong>Solution:</strong> Implemented comprehensive payment verification: HMAC validation, status checks, timeout handling, and cash-on-delivery fallback.</p>
+      </div>
+    
+      <div class="challenge-card">
+        <h4>Managing three different user flows in one codebase</h4>
+        <p><strong>Solution:</strong> Role-based routing and components. Middleware checks role; each dashboard has dedicated route structure. Shared components where appropriate.</p>
+      </div>
+    
+  </section>
+  
+  
+  
+  <section id="lessons">
+    <h2>Lessons Learned</h2>
+    <ul class="lessons-list">
+      <li>Real-time features add complexity but significantly improve user experience for logistics applications</li><li>Payment integration requires careful security considerations and testing of failure scenarios</li><li>Role-based access control should be implemented early and consistently across API and UI</li><li>Geospatial features (radius calculations, maps) are powerful but require understanding coordinate systems and accuracy</li><li>AI assistance works best for specific, well-defined tasks like quick-reply suggestions rather than full automation</li>
+    </ul>
+  </section>
+  
+  
+  
+  
+  <section id="back">
+    <div class="actions">
+      <a href="/#projects" class="btn">← Back to all projects</a>
+      <a href="https://github.com/VairagPatel" class="btn">View on GitHub ↗</a>
+      
+    </div>
+  </section>
+</article>
+
+</main>
+<footer class="wrap footer">
+  <span>© 2026 Vairag Akbari</span>
+  <span>Full-Stack Engineer · AI Systems · Product &amp; Growth · Bengaluru, India</span>
+  <a href="https://www.linkedin.com/in/vairag-akbari">LinkedIn</a><a href="https://github.com/VairagPatel">GitHub</a><a href="https://x.com/vairaglife">X</a><a href="https://instagram.com/growthwithvairag">Instagram</a>
+</footer>
+</body>
+</html>

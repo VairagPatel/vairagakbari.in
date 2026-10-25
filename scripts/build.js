@@ -54,6 +54,30 @@ const navigation = readJSON(path.join(CONFIG, 'navigation.json'));
 const profile = readJSON(path.join(CONTENT, 'profile.json'));
 const book = readJSON(path.join(CONTENT, 'book.json'));
 
+// Get all projects
+const getProjects = () => {
+  const projectsDir = path.join(CONTENT, 'projects');
+  const projects = [];
+  
+  if (!fs.existsSync(projectsDir)) return projects;
+  
+  const projectFiles = fs.readdirSync(projectsDir)
+    .filter(f => f.endsWith('.json'));
+  
+  for (const file of projectFiles) {
+    const projectPath = path.join(projectsDir, file);
+    const project = readJSON(projectPath);
+    projects.push(project);
+  }
+  
+  // Sort: implemented first, then by date
+  return projects.sort((a, b) => {
+    if (a.status === 'Implemented' && b.status !== 'Implemented') return -1;
+    if (a.status !== 'Implemented' && b.status === 'Implemented') return 1;
+    return 0;
+  });
+};
+
 // Get all published articles
 const getPublishedArticles = () => {
   const articlesDir = path.join(CONTENT, 'articles');
@@ -207,15 +231,76 @@ const generateFooter = () => {
 };
 
 // Build homepage
-const buildHomepage = (articles) => {
+const buildHomepage = (articles, projects) => {
   console.log('Building homepage...');
   
-  const workCards = profile.work.map(item => `
-    <article class="card">
-      <p class="meta">${item.meta}</p>
-      <h3>${item.title}</h3>
-      <p>${item.description}</p>
-      ${item.tags.map(tag => `<span class="tag">${escape(tag)}</span>`).join('')}
+  // Use profile.projects for homepage display (which references the detailed project files)
+  const featuredProjects = profile.projects || projects;
+  
+  // Featured projects section
+  const projectCards = featuredProjects.map(project => {
+    const statusBadge = project.status === 'Planning Stage' 
+      ? '<span class="badge planning">Planning Stage</span>' 
+      : '<span class="badge implemented">Implemented</span>';
+    
+    const techStack = project.technologies 
+      ? (Array.isArray(project.technologies) ? project.technologies.slice(0, 5) : [])
+      : [];
+    
+    const metrics = project.metrics ? `
+      <div class="project-metrics">
+        ${project.metrics.apiRoutes ? `<span>${project.metrics.apiRoutes} API routes</span>` : ''}
+        ${project.metrics.pages ? `<span>${project.metrics.pages} pages</span>` : ''}
+        ${project.metrics.databaseModels || project.metrics.roles ? `<span>${project.metrics.databaseModels || project.metrics.roles} ${project.metrics.databaseModels ? 'models' : 'roles'}</span>` : ''}
+      </div>
+    ` : '';
+    
+    return `
+    <article class="project-card">
+      <div class="project-header">
+        <h3><a href="${escape(project.caseStudyUrl || '#')}">${escape(project.name)}</a></h3>
+        ${statusBadge}
+      </div>
+      <p class="project-tagline">${escape(project.tagline)}</p>
+      <p class="project-description">${escape(project.description)}</p>
+      <p class="project-differentiator"><strong>Key:</strong> ${escape(project.differentiator)}</p>
+      ${metrics}
+      <div class="project-tech">
+        ${techStack.map(tech => `<span class="tech-tag">${escape(tech)}</span>`).join('')}
+      </div>
+      <div class="project-links">
+        <a href="${escape(project.caseStudyUrl || '#')}" class="btn-link">View case study →</a>
+      </div>
+    </article>
+    `;
+  }).join('');
+  
+  // FDE section
+  const fdeCapabilities = profile.fde.capabilities.map(cap => `
+    <div class="fde-capability">
+      <h4>${escape(cap.title)}</h4>
+      <p>${escape(cap.description)}</p>
+    </div>
+  `).join('');
+  
+  const fdeExamples = profile.fde.examples.map(example => `
+    <div class="fde-example">
+      <strong>${escape(example.project)}:</strong> ${escape(example.application)}
+    </div>
+  `).join('');
+  
+  // Experience section
+  const experienceItems = profile.experience.slice(0, 3).map((exp, idx) => `
+    <article class="experience-item">
+      <p class="meta">${escape(exp.period)} · ${escape(exp.type)}</p>
+      <h3>${escape(exp.title)}</h3>
+      <p>${escape(exp.description)}</p>
+      <ul class="achievements">
+        ${exp.achievements.slice(0, 3).map(ach => `<li>${escape(ach)}</li>`).join('')}
+      </ul>
+      <div class="tech-stack">
+        ${exp.technologies.slice(0, 5).map(tech => `<span class="tag">${escape(tech)}</span>`).join('')}
+      </div>
     </article>
   `).join('');
   
@@ -230,25 +315,16 @@ const buildHomepage = (articles) => {
     </a>
   `).join('');
   
-  // Capabilities section
-  const capabilities = profile.capabilities ? profile.capabilities.map(cap => `
-    <article class="capability">
-      <h3>${cap.problem}</h3>
-      <p><strong>My approach:</strong> ${cap.approach}</p>
-      <p class="evidence"><strong>Evidence:</strong> ${cap.evidence}</p>
-    </article>
-  `).join('') : '';
-  
   const content = `
 <section class="hero">
   <div>
     <p class="eyebrow">${profile.eyebrow}</p>
     <h1>${profile.headline}</h1>
     <p class="lead">${profile.lead}</p>
-    ${profile.value ? `<p class="value-prop">${profile.value}</p>` : ''}
+    <p class="value-prop">${profile.value}</p>
     <div class="actions">
       <a class="btn primary" href="${escape(profile.resumePdf)}">Download résumé ↗</a>
-      <a class="btn" href="#${profile.capabilities ? 'capabilities' : 'work'}">See what I can do</a>
+      <a class="btn" href="#projects">View projects</a>
     </div>
   </div>
   <figure>
@@ -257,35 +333,57 @@ const buildHomepage = (articles) => {
   </figure>
 </section>
 
-${profile.capabilities ? `<section id="capabilities">
+<section id="projects">
   <div class="section-head">
     <div>
-      <p class="eyebrow">01 / What I can help you solve</p>
-      <h2>Business problems<br>I tackle</h2>
+      <p class="eyebrow">01 / Featured Projects</p>
+      <h2>Building real<br>products</h2>
     </div>
-    <p>I'm a growth operator who diagnoses pipeline issues, improves workflows, and helps teams close more deals.</p>
+    <p>Full-stack applications, geospatial systems, and AI-powered workflows. From problem understanding through architecture, implementation, and deployment.</p>
   </div>
-  ${capabilities}
-</section>` : ''}
+  <div class="projects-grid">
+    ${projectCards}
+  </div>
+</section>
 
-<section id="work">
+<section id="fde">
   <div class="section-head">
     <div>
-      <p class="eyebrow">${profile.capabilities ? '02' : '01'} / Work in practice</p>
-      <h2>Experience &<br>projects</h2>
+      <p class="eyebrow">02 / Forward Deployed Engineering</p>
+      <h2>Engineering at the intersection of product, customers, and systems</h2>
     </div>
-    <p>Where I've applied these capabilities in real business contexts.</p>
+    <p>${escape(profile.fde.description)}</p>
   </div>
-  <div class="grid">
-    ${workCards}
+  <div class="fde-workflow">
+    ${profile.fde.workflow.map(step => `<div class="workflow-step">${escape(step)}</div>`).join('<span class="arrow">→</span>')}
+  </div>
+  <div class="fde-capabilities-grid">
+    ${fdeCapabilities}
+  </div>
+  <div class="fde-examples">
+    <h3>Demonstrated through projects:</h3>
+    ${fdeExamples}
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">03 / Experience & Technical Background</p>
+      <h2>What I've built<br>& learned</h2>
+    </div>
+    <p>Personal projects, automation workflows, and hands-on technical experience.</p>
+  </div>
+  <div class="experience-grid">
+    ${experienceItems}
   </div>
 </section>
 
 <section>
   <div class="section-head">
     <div>
-      <p class="eyebrow">${profile.capabilities ? '03' : '02'} / Learning in public</p>
-      <h2>Frameworks, with<br>the thinking attached.</h2>
+      <p class="eyebrow">04 / Learning in public</p>
+      <h2>Frameworks, with<br>the thinking attached</h2>
     </div>
     <p>I document what I'm learning through articles: the question, the framework, and a worked example.</p>
   </div>
@@ -297,7 +395,7 @@ ${profile.capabilities ? `<section id="capabilities">
 
 <section>
   <div class="book">
-    <p class="eyebrow">${profile.capabilities ? '04' : '03'} / A book in progress</p>
+    <p class="eyebrow">05 / A book in progress</p>
     <h2>${escape(book.title)}</h2>
     <p>${book.description}</p>
     <a class="btn" href="/book/">Open the book ↗</a>
@@ -307,11 +405,11 @@ ${profile.capabilities ? `<section id="capabilities">
 <section>
   <div class="section-head">
     <div>
-      <p class="eyebrow">${profile.capabilities ? '05' : '04'} / My toolkit</p>
-      <h2>Using today.<br>Learning next.</h2>
+      <p class="eyebrow">06 / Technical toolkit</p>
+      <h2>Technologies I<br>work with</h2>
     </div>
     <div>
-      <p><strong>In practice:</strong> ${profile.toolkit.inPractice}</p>
+      <p><strong>Built with:</strong> ${profile.toolkit.inPractice}</p>
       <p><strong>Currently learning:</strong> ${profile.toolkit.learning}</p>
       <p class="caption">${profile.toolkit.interest}</p>
     </div>
@@ -319,9 +417,9 @@ ${profile.capabilities ? `<section id="capabilities">
 </section>
 
 <section id="contact">
-  <p class="eyebrow">${profile.capabilities ? '06' : '05'} / Let's talk</p>
-  <h2>Looking for someone to own<br>growth end-to-end?</h2>
-  <p class="lead">I'm actively seeking founder's office and growth roles where I can own the customer journey from pipeline to close.</p>
+  <p class="eyebrow">07 / Let's connect</p>
+  <h2>Looking for forward deployed<br>or full-stack engineering roles?</h2>
+  <p class="lead">I'm actively seeking opportunities where I can build technical solutions that directly address customer and business problems.</p>
   <div class="actions">
     <a class="btn primary" href="mailto:${escape(site.contact.email)}">Email me</a>
     ${site.social.linkedin ? `<a class="btn" href="${escape(site.social.linkedin)}">Connect on LinkedIn ↗</a>` : ''}
@@ -332,11 +430,7 @@ ${profile.capabilities ? `<section id="capabilities">
       github: 'GitHub',
       twitter: 'X',
       instagram: 'Instagram',
-      medium: 'Medium',
-      substack: 'Substack',
-      geeksforgeeks: 'GeeksforGeeks',
-      leetcode: 'LeetCode',
-      threads: 'Threads'
+      medium: 'Medium'
     };
     
     Object.entries(socialPlatforms).forEach(([key, label]) => {
@@ -354,8 +448,8 @@ ${profile.capabilities ? `<section id="capabilities">
 `;
   
   const head = generateHead({
-    title: `Growth Operator — Founder's Office & Strategy Roles | ${site.name}`,
-    description: "Growth operator targeting founder's office roles. I diagnose pipeline bottlenecks, turn customer insights into revenue, and fix workflows. Currently @ Jumbo Homes.",
+    title: `Forward Deployed Engineer | Full-Stack & AI Builder | ${site.name}`,
+    description: "Full-stack engineer building intelligent products and connected systems. SnapCart, Rydex, and Health Map case studies. React, Next.js, TypeScript, MongoDB, AI integrations.",
     canonical: site.domain + '/',
     type: 'ProfilePage'
   });
@@ -376,6 +470,231 @@ ${generateFooter()}
 </html>`;
   
   writeFile(path.join(DIST, 'index.html'), html);
+};
+
+// Build project case study page
+const buildProjectPage = (project) => {
+  console.log(`Building project page: ${project.slug}...`);
+  
+  const content = `
+<div class="article-head">
+  <p class="eyebrow"><a href="/#projects">Projects</a> / ${escape(project.status)}</p>
+  <h1>${escape(project.title)}</h1>
+  <p class="lead">${escape(project.description)}</p>
+  <p class="meta">${escape(project.date)}</p>
+</div>
+
+<article class="prose project-detail">
+  ${project.status === 'Planning Stage' ? `
+  <div class="callout planning-notice">
+    <strong>Project Status: Planning & Architecture Stage</strong>
+    <p>This project is currently in the planning and system design phase. The architecture, features, and technical approach described below represent proposed solutions based on requirements analysis and research, not deployed implementation.</p>
+  </div>
+  ` : ''}
+  
+  <section id="overview">
+    <h2>Problem & Solution</h2>
+    <div class="problem-solution">
+      <div>
+        <h3>Problem</h3>
+        <p>${escape(project.problem || project.description)}</p>
+      </div>
+      <div>
+        <h3>${project.status === 'Planning Stage' ? 'Proposed Solution' : 'Solution'}</h3>
+        <p>${escape(project.proposedSolution || project.solution)}</p>
+      </div>
+    </div>
+  </section>
+  
+  ${project.metrics ? `
+  <section id="metrics">
+    <h2>Technical Metrics</h2>
+    <div class="metrics-grid">
+      ${project.metrics.apiRoutes ? `<div class="metric-card"><strong>${project.metrics.apiRoutes}</strong><span>API Routes</span></div>` : ''}
+      ${project.metrics.pages ? `<div class="metric-card"><strong>${project.metrics.pages}</strong><span>Pages</span></div>` : ''}
+      ${project.metrics.databaseModels ? `<div class="metric-card"><strong>${project.metrics.databaseModels}</strong><span>Database Models</span></div>` : ''}
+      ${project.metrics.userRoles ? `<div class="metric-card"><strong>${project.metrics.userRoles}</strong><span>User Roles</span></div>` : ''}
+      ${project.metrics.onboardingSteps ? `<div class="metric-card"><strong>${project.metrics.onboardingSteps}</strong><span>Onboarding Steps</span></div>` : ''}
+    </div>
+  </section>
+  ` : ''}
+  
+  <section id="technologies">
+    <h2>Technology Stack</h2>
+    <div class="tech-categories">
+      ${Object.entries(project.technologies).map(([category, techs]) => `
+        <div class="tech-category">
+          <h4>${category.charAt(0).toUpperCase() + category.slice(1)}</h4>
+          <div class="tech-list">
+            ${(Array.isArray(techs) ? techs : [techs]).map(tech => `<span class="tech-badge">${escape(tech)}</span>`).join('')}
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  </section>
+  
+  ${project.roles ? `
+  <section id="roles">
+    <h2>User Roles & Features</h2>
+    ${project.roles.map(role => `
+      <div class="role-card">
+        <h3>${escape(role.name)}</h3>
+        <ul>
+          ${role.features.map(feature => `<li>${escape(feature)}</li>`).join('')}
+        </ul>
+      </div>
+    `).join('')}
+  </section>
+  ` : ''}
+  
+  ${project.orderLifecycle || project.bookingLifecycle ? `
+  <section id="lifecycle">
+    <h2>${project.orderLifecycle ? 'Order' : 'Booking'} Lifecycle</h2>
+    <div class="lifecycle-flow">
+      ${(project.orderLifecycle || project.bookingLifecycle).map((stage, idx) => `
+        <div class="lifecycle-stage">
+          <div class="stage-number">${idx + 1}</div>
+          <h4>${escape(stage.stage)}</h4>
+          <p>${escape(stage.description)}</p>
+        </div>
+        ${idx < (project.orderLifecycle || project.bookingLifecycle).length - 1 ? '<div class="stage-arrow">→</div>' : ''}
+      `).join('')}
+    </div>
+  </section>
+  ` : ''}
+  
+  ${project.partnerOnboarding ? `
+  <section id="onboarding">
+    <h2>Partner Onboarding Workflow</h2>
+    <div class="onboarding-steps">
+      ${project.partnerOnboarding.map(step => `
+        <div class="onboarding-step">
+          <div class="step-number">Step ${step.step}</div>
+          <h4>${escape(step.title)}</h4>
+          <p>${escape(step.description)}</p>
+        </div>
+      `).join('')}
+    </div>
+  </section>
+  ` : ''}
+  
+  <section id="architecture">
+    <h2>${project.status === 'Planning Stage' ? 'Proposed Architecture' : 'System Architecture'}</h2>
+    <p>${escape((project.architecture && project.architecture.description) || (project.proposedArchitecture && project.proposedArchitecture.description) || '')}</p>
+    <div class="architecture-layers">
+      ${((project.architecture && project.architecture.layers) || (project.architecture && project.architecture.components) || (project.proposedArchitecture && project.proposedArchitecture.components) || []).map(layer => `
+        <div class="arch-layer">
+          <h4>${escape(layer.name)}</h4>
+          <p class="tech-label">${escape(layer.tech)}</p>
+          ${layer.status ? `<span class="status-badge">${escape(layer.status)}</span>` : ''}
+          <ul>
+            ${(Array.isArray(layer.responsibilities) ? layer.responsibilities : []).map(resp => `<li>${escape(resp)}</li>`).join('')}
+          </ul>
+        </div>
+      `).join('')}
+    </div>
+  </section>
+  
+  ${project.keyFeatures ? `
+  <section id="features">
+    <h2>Key Engineering Features</h2>
+    ${project.keyFeatures.map(feature => `
+      <div class="feature-card">
+        <h3>${escape(feature.title)}</h3>
+        <p>${escape(feature.description)}</p>
+      </div>
+    `).join('')}
+  </section>
+  ` : ''}
+  
+  ${project.engineeringDecisions || project.architectureRationale ? `
+  <section id="decisions">
+    <h2>Engineering Decisions & Tradeoffs</h2>
+    ${(project.engineeringDecisions || project.architectureRationale || []).map(decision => `
+      <div class="decision-card">
+        <h4>${escape(decision.decision)}</h4>
+        <p><strong>Rationale:</strong> ${escape(decision.rationale)}</p>
+        ${decision.tradeoffs ? `<p><strong>Tradeoffs:</strong> ${escape(decision.tradeoffs)}</p>` : ''}
+        ${decision.considerations ? `<p><strong>Considerations:</strong> ${escape(decision.considerations)}</p>` : ''}
+      </div>
+    `).join('')}
+  </section>
+  ` : ''}
+  
+  ${project.challenges ? `
+  <section id="challenges">
+    <h2>Challenges & Solutions</h2>
+    ${project.challenges.map(challenge => `
+      <div class="challenge-card">
+        <h4>${escape(challenge.challenge)}</h4>
+        <p><strong>Solution:</strong> ${escape(challenge.solution)}</p>
+      </div>
+    `).join('')}
+  </section>
+  ` : ''}
+  
+  ${project.lessonsLearned ? `
+  <section id="lessons">
+    <h2>Lessons Learned</h2>
+    <ul class="lessons-list">
+      ${project.lessonsLearned.map(lesson => `<li>${escape(lesson)}</li>`).join('')}
+    </ul>
+  </section>
+  ` : ''}
+  
+  ${project.projectRoadmap ? `
+  <section id="roadmap">
+    <h2>Project Roadmap</h2>
+    ${project.projectRoadmap.map(phase => `
+      <div class="roadmap-phase ${phase.status.toLowerCase().replace(' ', '-')}">
+        <div class="phase-header">
+          <h4>${escape(phase.phase)}</h4>
+          <span class="phase-status">${escape(phase.status)}</span>
+        </div>
+        <p>${escape(phase.description)}</p>
+        ${phase.deliverables ? `
+          <p class="deliverables"><strong>Deliverables:</strong> ${phase.deliverables.map(d => escape(d)).join(', ')}</p>
+        ` : ''}
+      </div>
+    `).join('')}
+  </section>
+  ` : ''}
+  
+  <section id="back">
+    <div class="actions">
+      <a href="/#projects" class="btn">← Back to all projects</a>
+      ${project.github ? `<a href="${escape(project.github)}" class="btn">View on GitHub ↗</a>` : ''}
+      ${project.demo ? `<a href="${escape(project.demo)}" class="btn primary">View live demo ↗</a>` : ''}
+    </div>
+  </section>
+</article>
+`;
+  
+  const head = generateHead({
+    title: project.title,
+    description: project.description,
+    canonical: project.canonical,
+    type: 'Article',
+    datePublished: project.datePublished
+  });
+  
+  const html = `<!doctype html>
+<html lang="${site.language}">
+<head>
+${head}
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+${generateHeader()}
+<main id="main" class="wrap">
+${content}
+</main>
+${generateFooter()}
+</body>
+</html>`;
+  
+  const projectDir = path.join(DIST, 'projects', project.slug);
+  writeFile(path.join(projectDir, 'index.html'), html);
 };
 
 // Build article page
@@ -547,13 +866,18 @@ ${generateFooter()}
 };
 
 // Generate sitemap
-const generateSitemap = (articles) => {
+const generateSitemap = (articles, projects) => {
   console.log('Generating sitemap...');
   
   const urls = [
     { loc: site.domain + '/', priority: '1.0' },
     { loc: site.domain + '/article/', priority: '0.9' },
     { loc: site.domain + '/book/', priority: '0.8' },
+    ...projects.map(p => ({
+      loc: p.canonical,
+      priority: '0.9',
+      lastmod: p.datePublished || null
+    })),
     ...articles.map(a => ({
       loc: a.canonical,
       priority: '0.8',
@@ -675,18 +999,21 @@ const build = () => {
   // Ensure dist directory
   ensureDir(DIST);
   
-  // Get articles
+  // Get projects and articles
+  const projects = getProjects();
   const articles = getPublishedArticles();
+  console.log(`Found ${projects.length} project(s)`);
   console.log(`Found ${articles.length} published article(s)\n`);
   
   // Build pages
-  buildHomepage(articles);
+  buildHomepage(articles, projects);
+  projects.forEach(buildProjectPage);
   buildArticleIndex(articles);
   buildBook(articles);
   articles.forEach(buildArticle);
   
   // Generate metadata files
-  generateSitemap(articles);
+  generateSitemap(articles, projects);
   generateRobots();
   generate404();
   

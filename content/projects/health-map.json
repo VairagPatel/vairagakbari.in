@@ -1,0 +1,320 @@
+{
+  "id": "health-map",
+  "title": "Health Map — Healthcare & Wellness Discovery Platform",
+  "slug": "health-map",
+  "tagline": "Geospatial healthcare discovery with PostGIS architecture",
+  "status": "Planning Stage",
+  "date": "Planning / Architecture",
+  "datePublished": null,
+  "canonical": "https://vairagakbari.in/projects/health-map/",
+  "description": "Planned geospatial discovery platform to help users find healthcare and wellness services across Bengaluru, including hospitals, clinics, diagnostic centers, fitness facilities, and wellness providers.",
+  "problem": "Finding appropriate healthcare and wellness services in a large city like Bengaluru is challenging. Users need to discover nearby providers, understand services offered, filter by specialization, and make informed decisions. Providers need a platform for listing verification and accurate information management.",
+  "proposedSolution": "A geospatial discovery platform using React.js frontend, FastAPI backend, and PostgreSQL with PostGIS for efficient location-based queries. Focus on accurate provider information, privacy-conscious data handling, and user-friendly discovery workflows.",
+  "technologies": {
+    "frontend": ["React.js", "TypeScript", "Interactive maps", "Search & filtering"],
+    "backend": ["FastAPI", "Python", "REST APIs", "Authentication"],
+    "database": ["PostgreSQL", "PostGIS", "Geospatial indexing"],
+    "proposed": ["Provider onboarding", "Listing verification", "Admin management"]
+  },
+  "scopedRequirements": [
+    {
+      "category": "Discovery",
+      "requirements": [
+        "Location-based search for healthcare and wellness services",
+        "Proximity search within specified radius",
+        "Category filtering (hospitals, clinics, diagnostics, fitness, wellness)",
+        "Specialty and service-based filtering",
+        "Interactive map visualization of provider locations",
+        "List and map view toggle"
+      ]
+    },
+    {
+      "category": "Provider Information",
+      "requirements": [
+        "Provider profiles with name, address, contact, specialties",
+        "Services offered and operating hours",
+        "Facility information and amenities",
+        "Photos and media (when available)",
+        "Verification status indicator",
+        "Data accuracy timestamp"
+      ]
+    },
+    {
+      "category": "Provider Onboarding",
+      "requirements": [
+        "Registration workflow for providers",
+        "Information submission and verification",
+        "Document upload for verification",
+        "Status tracking (pending, verified, active)",
+        "Profile management for verified providers"
+      ]
+    },
+    {
+      "category": "Administrative",
+      "requirements": [
+        "Admin dashboard for listing review",
+        "Verification workflow management",
+        "Data quality monitoring",
+        "User and provider management",
+        "Analytics and reporting"
+      ]
+    },
+    {
+      "category": "Data & Privacy",
+      "requirements": [
+        "Privacy-conscious information handling",
+        "No patient health data storage",
+        "Provider data accuracy and freshness",
+        "Clear data usage policies",
+        "Appropriate access controls"
+      ]
+    }
+  ],
+  "proposedArchitecture": {
+    "description": "Health Map architecture emphasizes geospatial performance, data accuracy, and privacy. PostgreSQL with PostGIS extension provides robust geospatial capabilities. FastAPI enables rapid API development with automatic documentation. React.js frontend consumes geospatial APIs for interactive discovery.",
+    "components": [
+      {
+        "name": "Frontend Application",
+        "tech": "React.js, TypeScript, Map libraries",
+        "responsibilities": [
+          "User interface for discovery and search",
+          "Interactive map with provider markers",
+          "Filter and search controls",
+          "Provider detail views",
+          "Responsive design"
+        ],
+        "status": "Planned"
+      },
+      {
+        "name": "API Layer",
+        "tech": "FastAPI, Python",
+        "responsibilities": [
+          "REST API endpoints for discovery",
+          "Geospatial query execution",
+          "Provider CRUD operations",
+          "Authentication and authorization",
+          "Onboarding workflow APIs",
+          "Admin management APIs"
+        ],
+        "status": "Planned"
+      },
+      {
+        "name": "Application Services",
+        "tech": "Python business logic",
+        "responsibilities": [
+          "Discovery service (proximity search)",
+          "Provider service (CRUD, verification)",
+          "Onboarding service (workflow management)",
+          "Admin service (review, approval)",
+          "Notification service"
+        ],
+        "status": "Planned"
+      },
+      {
+        "name": "Database Layer",
+        "tech": "PostgreSQL with PostGIS extension",
+        "responsibilities": [
+          "Provider data storage",
+          "Geospatial point data (lat/long)",
+          "Spatial indexing (GIST indexes)",
+          "User and provider accounts",
+          "Verification workflow state",
+          "Audit logs"
+        ],
+        "status": "Planned"
+      },
+      {
+        "name": "Geospatial Queries",
+        "tech": "PostGIS functions and operators",
+        "responsibilities": [
+          "ST_Distance for proximity calculations",
+          "ST_DWithin for radius search",
+          "Spatial indexes for query performance",
+          "Coordinate reference systems (WGS 84)"
+        ],
+        "status": "Planned"
+      }
+    ]
+  },
+  "architectureRationale": [
+    {
+      "decision": "PostgreSQL with PostGIS over MongoDB geospatial",
+      "rationale": "PostGIS offers more sophisticated geospatial operations, better performance for complex queries, industry-standard coordinate system support, and stronger data integrity for healthcare information.",
+      "considerations": "PostGIS is more complex to learn but provides significantly better geospatial capabilities. For healthcare discovery, accuracy and performance are critical."
+    },
+    {
+      "decision": "FastAPI for backend",
+      "rationale": "Modern Python framework with automatic OpenAPI documentation, type validation with Pydantic, async support for performance, and excellent PostgreSQL integration.",
+      "considerations": "FastAPI is newer than Flask/Django but has strong community, excellent documentation, and is well-suited for API-first development."
+    },
+    {
+      "decision": "React.js for frontend",
+      "rationale": "Component-based architecture for map interactions, rich ecosystem of map libraries (Leaflet, Mapbox), TypeScript support for type safety, good mobile performance.",
+      "considerations": "Considered Next.js but discovery platform doesn't require SSR. React provides flexibility for interactive map features."
+    },
+    {
+      "decision": "Separate frontend and backend",
+      "rationale": "FastAPI backend provides clean API layer; React frontend can be deployed independently; clear separation of concerns; easier to scale services separately.",
+      "considerations": "More deployment complexity than monolith but better scalability and maintenance."
+    }
+  ],
+  "geospatialDesign": {
+    "proximitySearch": {
+      "description": "Users can search for providers within specified radius (e.g., 5km, 10km) from current location or entered address.",
+      "postgisApproach": "ST_DWithin function efficiently finds points within distance threshold. GIST spatial index makes queries fast even with thousands of providers.",
+      "example": "SELECT * FROM providers WHERE ST_DWithin(location, ST_MakePoint(longitude, latitude)::geography, 10000);"
+    },
+    "categoryFiltering": {
+      "description": "Filter providers by type: hospitals, clinics, diagnostic centers, fitness facilities, wellness centers.",
+      "implementation": "Category column with index; combine with geospatial query. Multiple categories can be selected.",
+      "consideration": "Categories should be standardized taxonomy, not free text."
+    },
+    "specialtyFiltering": {
+      "description": "Filter by specialty or service type (cardiology, orthopedics, physiotherapy, etc.).",
+      "implementation": "Specialty tags or separate specialties table with many-to-many relationship.",
+      "consideration": "Some providers offer multiple specialties; data structure should support this."
+    },
+    "dataAccuracy": {
+      "description": "Healthcare information requires accuracy and freshness.",
+      "approach": "Verification workflow, provider updates, admin review, last_verified timestamp, stale data warnings.",
+      "consideration": "Balance between data freshness and provider effort to update."
+    }
+  },
+  "providerOnboardingWorkflow": [
+    {
+      "step": 1,
+      "title": "Registration",
+      "description": "Provider creates account with email, phone, basic information"
+    },
+    {
+      "step": 2,
+      "title": "Facility Details",
+      "description": "Name, address, location (map picker), type, categories"
+    },
+    {
+      "step": 3,
+      "title": "Services & Specialties",
+      "description": "Services offered, specialties, operating hours"
+    },
+    {
+      "step": 4,
+      "title": "Verification Documents",
+      "description": "Upload registration certificates, licenses, identity proof"
+    },
+    {
+      "step": 5,
+      "title": "Photos & Media",
+      "description": "Facility photos, logo (optional)"
+    },
+    {
+      "step": 6,
+      "title": "Review & Submit",
+      "description": "Provider reviews information and submits for admin verification"
+    },
+    {
+      "step": 7,
+      "title": "Admin Verification",
+      "description": "Admin reviews submission, verifies documents, approves or requests changes"
+    },
+    {
+      "step": 8,
+      "title": "Active Listing",
+      "description": "Verified provider appears in search results; can manage profile"
+    }
+  ],
+  "privacyAndSecurity": [
+    {
+      "principle": "No patient health data",
+      "implementation": "Platform stores provider information only, not patient records or health data. Clear scope limitation."
+    },
+    {
+      "principle": "Provider information accuracy",
+      "implementation": "Verification workflow, document checks, admin review, regular data freshness checks."
+    },
+    {
+      "principle": "Appropriate access controls",
+      "implementation": "Role-based access: public (search only), provider (manage own listing), admin (verify and manage all)"
+    },
+    {
+      "principle": "Clear data usage",
+      "implementation": "Privacy policy, terms of service, data usage explanation, user consent"
+    }
+  ],
+  "projectRoadmap": [
+    {
+      "phase": "Problem Scoping & Requirements",
+      "status": "In Progress",
+      "description": "Define user needs, provider needs, feature scope, technical requirements",
+      "deliverables": ["Requirements document", "User stories", "Feature prioritization"]
+    },
+    {
+      "phase": "Architecture & Design",
+      "status": "In Progress",
+      "description": "System architecture, database schema, API design, UI wireframes",
+      "deliverables": ["Architecture diagram", "Database schema", "API specification", "Wireframes"]
+    },
+    {
+      "phase": "Database & Geospatial Modeling",
+      "status": "Planned",
+      "description": "PostgreSQL setup, PostGIS configuration, schema implementation, spatial indexes",
+      "deliverables": ["Database setup", "Schema migrations", "Test data", "Geospatial queries"]
+    },
+    {
+      "phase": "FastAPI Implementation",
+      "status": "Planned",
+      "description": "API endpoints, authentication, geospatial queries, provider CRUD, onboarding workflow",
+      "deliverables": ["Working API", "API documentation", "Authentication", "Core endpoints"]
+    },
+    {
+      "phase": "React Frontend & Maps",
+      "status": "Planned",
+      "description": "UI components, interactive maps, search and filter, provider details, responsive design",
+      "deliverables": ["Working frontend", "Map integration", "Search UI", "Provider profiles"]
+    },
+    {
+      "phase": "Provider Onboarding & Admin",
+      "status": "Planned",
+      "description": "Onboarding workflow, admin dashboard, verification tools, provider management",
+      "deliverables": ["Onboarding flow", "Admin dashboard", "Verification system"]
+    },
+    {
+      "phase": "Testing & Deployment",
+      "status": "Planned",
+      "description": "Testing, security review, deployment setup, monitoring",
+      "deliverables": ["Test suite", "Security audit", "Deployment", "Monitoring"]
+    }
+  ],
+  "engineeringConsiderations": [
+    "PostGIS spatial indexes (GIST) are essential for query performance with large provider datasets",
+    "Coordinate reference systems matter: WGS 84 (SRID 4326) for lat/long, SRID 3857 for web maps",
+    "Distance calculations: geography type for accurate meters, geometry type for faster queries",
+    "Provider data freshness: implement verification timestamps and stale data indicators",
+    "Search relevance: balance proximity with other factors like ratings, services, availability",
+    "Privacy considerations: healthcare discovery doesn't need patient data; scope accordingly",
+    "Admin burden: verification workflow should be efficient but thorough",
+    "Mobile-first design: users often search on mobile while in transit",
+    "Fallback for location services: allow manual location entry when GPS unavailable",
+    "Error handling: handle invalid coordinates, location permission denials gracefully"
+  ],
+  "fdeApproach": "Health Map demonstrates Forward Deployed Engineering thinking: starting with real-world discovery problem, understanding user and provider needs, researching appropriate technical architecture (PostGIS for geospatial performance), planning phased delivery, considering data accuracy and privacy from the start, and designing for operational feasibility.",
+  "nextSteps": [
+    "Complete requirements documentation with user and provider feedback",
+    "Finalize database schema with geospatial considerations",
+    "Set up development environment (PostgreSQL, PostGIS, FastAPI)",
+    "Implement core geospatial queries and test performance",
+    "Build provider data model and validation",
+    "Create API specification for frontend integration",
+    "Begin frontend development with map integration"
+  ],
+  "github": null,
+  "demo": null,
+  "screenshots": [],
+  "clarifications": [
+    "Health Map is in planning and architecture stage",
+    "No implemented code, APIs, or deployed infrastructure yet",
+    "Architecture decisions are proposed, not deployed",
+    "Technology choices are based on research and requirements, not production experience",
+    "Roadmap reflects planning stage; completion dates not determined",
+    "This project demonstrates FDE approach to solution design and architecture planning"
+  ]
+}

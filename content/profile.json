@@ -1,68 +1,325 @@
 {
-  "eyebrow": "Bengaluru, India · Open to opportunities",
-  "headline": "I help early-stage companies turn customer insights into <em class=\"accent\">revenue</em> and <em class=\"accent\">repeatable operations</em>.",
-  "lead": "Growth operator at Jumbo Homes. Targeting founder's office and growth roles where I own the full customer journey—from pipeline to closed deals.",
-  "value": "I diagnose where your funnel breaks, talk to customers to understand why, and fix the workflow so your team can close more without working harder.",
-  "portraitCaption": "Sales pipeline → Customer discovery → Workflow improvement",
+  "eyebrow": "Bengaluru, India · Open to FDE & Full-Stack opportunities",
+  "headline": "Building intelligent products, connected systems, and better workflows.",
+  "lead": "I work at the intersection of software engineering, AI, product thinking, and business operations—building full-stack applications, integrating complex workflows, and designing practical solutions to real-world problems.",
+  "value": "Forward Deployed Engineer | Full-Stack & AI Builder | Growth & Operations Technologist",
+  "portraitCaption": "Full-stack development · AI systems · Product & growth engineering",
   "portraitImage": "/assets/vairag-akbari.webp",
   "portraitAlt": "Portrait of Vairag Akbari in a black suit",
   "resumePdf": "/assets/vairag-akbari-resume.pdf",
-  "capabilities": [
+  "projects": [
     {
-      "problem": "Sales pipeline stalls and nobody knows why",
-      "approach": "I map every step from first contact to close, talk to customers who dropped off, and find where the friction actually is—not where we assume it is.",
-      "evidence": "Jumbo Homes: Currently managing property sales end-to-end across multiple zones."
+      "id": "snapcart",
+      "name": "SnapCart",
+      "tagline": "Full-Stack Grocery Delivery Platform",
+      "status": "Implemented",
+      "date": "April 2026",
+      "description": "Multi-role grocery delivery platform covering customer shopping, inventory management, order processing, payment handling, delivery operations, and real-time communication.",
+      "differentiator": "Multi-role commerce, real-time delivery, secure payments",
+      "technologies": ["React.js", "Next.js", "TypeScript", "MongoDB", "Socket.IO", "Razorpay"],
+      "metrics": {
+        "apiRoutes": 27,
+        "pages": 12,
+        "roles": 3
+      },
+      "highlights": [
+        "Real-time delivery tracking with Socket.IO and Leaflet",
+        "Razorpay payment integration with server-side verification",
+        "10km radius-based delivery assignment",
+        "Gemini AI-powered quick-reply suggestions"
+      ],
+      "github": "https://github.com/VairagPatel",
+      "demo": null,
+      "caseStudyUrl": "/projects/snapcart/"
     },
     {
-      "problem": "Outreach takes too long and follow-ups get missed",
-      "approach": "I automate the prep work so your team spends time on conversations, not admin. Built a Gmail draft generator from lead data using Google Sheets.",
-      "evidence": "Seller outreach agent (see Work section)"
+      "id": "rydex",
+      "name": "Rydex",
+      "tagline": "Vehicle Rental & Ride Booking Platform",
+      "status": "Implemented",
+      "date": "April 2026",
+      "description": "Multi-role vehicle rental and ride-booking platform supporting vehicle discovery, bookings, partner onboarding, payments, identity verification, real-time tracking, and communication.",
+      "differentiator": "Geospatial discovery, booking orchestration, partner onboarding",
+      "technologies": ["React.js", "Next.js", "TypeScript", "MongoDB", "Socket.IO", "ZegoCloud"],
+      "metrics": {
+        "apiRoutes": 43,
+        "pages": 15,
+        "databaseModels": 6,
+        "onboardingSteps": 8
+      },
+      "highlights": [
+        "GeoJSON-based vehicle discovery within 10km radius",
+        "Eight-step partner onboarding with video KYC",
+        "Platform commission calculations and partner earnings",
+        "OTP-based pickup and drop confirmation"
+      ],
+      "github": "https://github.com/VairagPatel",
+      "demo": null,
+      "caseStudyUrl": "/projects/rydex/"
     },
     {
-      "problem": "Customer needs aren't clear from the data",
-      "approach": "I use Jobs to Be Done and direct customer conversations to understand what progress they're trying to make, then prioritize what matters.",
-      "evidence": "Applied JTBD framework to property buyer qualification"
-    },
-    {
-      "problem": "Projects involve too many teams and unclear ownership",
-      "approach": "I coordinate across supply, marketing, legal, and ops teams. I keep the next action clear and follow up until it's done.",
-      "evidence": "Jumbo Homes: Coordinating supply onboarding, buyer visits, negotiation, legal coordination"
-    },
-    {
-      "problem": "Agent workflows fail because they skip human judgment",
-      "approach": "I design AI-assisted workflows with approval gates at decision points. Automation handles prep; humans handle judgment.",
-      "evidence": "Listing image workflow design with 3 approval gates (design phase)"
+      "id": "health-map",
+      "name": "Health Map",
+      "tagline": "Healthcare & Wellness Discovery Platform",
+      "status": "Planning Stage",
+      "date": "Planning / Architecture",
+      "description": "Planned geospatial discovery platform to help users find healthcare and wellness services across Bengaluru, including hospitals, clinics, diagnostic centers, fitness facilities, and wellness providers.",
+      "differentiator": "Healthcare discovery, PostGIS architecture, FDE-style solution design",
+      "technologies": ["React.js", "TypeScript", "FastAPI", "PostgreSQL", "PostGIS"],
+      "metrics": null,
+      "highlights": [
+        "Location-based healthcare and wellness discovery",
+        "PostGIS for geospatial proximity search",
+        "Provider onboarding and verification workflows",
+        "Privacy-conscious information handling"
+      ],
+      "github": null,
+      "demo": null,
+      "caseStudyUrl": "/projects/health-map/"
     }
   ],
-  "work": [
+  "fde": {
+    "headline": "Engineering at the intersection of product, customers, and systems",
+    "description": "I approach engineering problems by understanding business constraints, designing technical architecture, building integrated solutions, and measuring outcomes.",
+    "workflow": [
+      "Discover Problem",
+      "Understand Constraints",
+      "Design Architecture",
+      "Build Solution",
+      "Integrate Systems",
+      "Deploy",
+      "Measure",
+      "Iterate"
+    ],
+    "capabilities": [
+      {
+        "title": "Technical problem solving",
+        "description": "Architecture, APIs, databases, integrations, reliability, and debugging. Designed and implemented 70+ REST API routes across SnapCart and Rydex with authentication, payments, real-time features, and geospatial queries."
+      },
+      {
+        "title": "Customer and business understanding",
+        "description": "Requirements discovery, stakeholder communication, workflow mapping, and translating business objectives into technical specifications. Applied Jobs-to-Be-Done framework to understand user progress and design appropriate solutions."
+      },
+      {
+        "title": "AI implementation",
+        "description": "LLM workflows, structured outputs, and agent orchestration. Integrated Gemini AI for intelligent quick-reply suggestions in SnapCart and Rydex chat systems."
+      },
+      {
+        "title": "Deployment and adoption",
+        "description": "Production readiness, observability, documentation, onboarding, iteration, and measurable outcomes. Built complete workflows from problem scoping through testing and deployment planning."
+      }
+    ],
+    "examples": [
+      {
+        "project": "SnapCart",
+        "application": "Translating grocery commerce and logistics requirements into a multi-role application with payment and delivery workflows. Built order lifecycle from cart through payment, assignment, live tracking, and OTP confirmation."
+      },
+      {
+        "project": "Rydex",
+        "application": "Translating transportation, onboarding, and marketplace requirements into integrated booking, geospatial, payment, and verification systems. Designed eight-step partner onboarding with video KYC and commission calculations."
+      },
+      {
+        "project": "Health Map",
+        "application": "Defining a real-world discovery problem, identifying stakeholders, choosing a geospatial architecture (PostGIS), and planning delivery stages. Demonstrating FDE approach through requirements analysis and system design."
+      }
+    ]
+  },
+  "education": {
+    "institution": "Vellore Institute of Technology, Bhopal",
+    "degree": "Bachelor of Technology in Computer Science and Engineering",
+    "period": "2022 – 2026",
+    "cgpa": "8.43/10.0"
+  },
+  "certifications": [
     {
-      "meta": "JUMBO HOMES · JUNE 2026–PRESENT",
-      "title": "End-to-end property sales across multiple zones",
-      "description": "Supply onboarding, buyer qualification, visit coordination, negotiation, and legal handoff. I identify pipeline bottlenecks and keep deals moving.",
-      "tags": ["Pipeline management", "Customer qualification", "Cross-team coordination"]
+      "title": "Claude Code",
+      "issuer": "Anthropic",
+      "date": "May 2026"
     },
     {
-      "meta": "INDEPENDENT PROJECT · 2026",
-      "title": "Seller outreach automation (Google Sheets → Gmail)",
+      "title": "Claude Code 101",
+      "issuer": "Anthropic",
+      "date": "May 2026"
+    },
+    {
+      "title": "Java & Data Structures and Algorithms",
+      "issuer": "Coding Blocks",
+      "date": "January 2025"
+    }
+  ],
+  "achievements": [
+    {
+      "title": "450+ DSA Problems Solved",
+      "description": "94% acceptance rate on LeetCode",
+      "category": "Technical"
+    },
+    {
+      "title": "GrabHack Hackathon Finalist",
+      "description": "Selected among Top 30 teams in India",
+      "category": "Competition"
+    }
+  ],
+  "experience": [
+    {
+      "period": "APRIL 2026",
+      "title": "SnapCart — Full-Stack Grocery Delivery Platform",
+      "type": "Personal Project",
+      "description": "Built a complete multi-role grocery delivery system with customer shopping, admin inventory management, and delivery partner operations. Implemented real-time tracking, secure payments, and AI-powered communication.",
+      "achievements": [
+        "Developed 27 REST API routes and 12 pages covering three user roles",
+        "Integrated Razorpay payments with server-side verification and cash-on-delivery",
+        "Built real-time delivery tracking using Socket.IO, Leaflet, and geolocation APIs",
+        "Implemented 10km radius-based delivery assignment with OTP confirmation",
+        "Added Gemini AI-powered quick-reply suggestions for chat"
+      ],
+      "technologies": ["React.js", "Next.js", "TypeScript", "MongoDB", "Socket.IO", "Razorpay", "Cloudinary", "Gemini AI"]
+    },
+    {
+      "period": "APRIL 2026",
+      "title": "Rydex — Vehicle Rental & Ride Booking Platform",
+      "type": "Personal Project",
+      "description": "Built a comprehensive vehicle rental and ride-booking marketplace with user, partner, and admin dashboards. Implemented geospatial vehicle discovery, booking orchestration, payments with commission calculations, and partner onboarding with video KYC.",
+      "achievements": [
+        "Developed 43 REST API routes and 15 pages with six database models",
+        "Built GeoJSON-based vehicle discovery within 10km radius using Leaflet",
+        "Designed eight-step partner onboarding process with ZegoCloud video KYC",
+        "Implemented platform commission (10%) calculations and partner earnings workflows",
+        "Added real-time tracking, messaging, and OTP-based pickup/drop confirmation"
+      ],
+      "technologies": ["React.js", "Next.js", "TypeScript", "MongoDB", "Socket.IO", "Razorpay", "ZegoCloud", "Leaflet", "Gemini AI"]
+    },
+    {
+      "period": "2026",
+      "title": "Seller Outreach Automation",
+      "type": "Independent Project",
       "description": "Built a workflow that turns lead data into personalized Gmail drafts. Supply team reviews and sends, spending more time on conversations instead of email prep.",
-      "tags": ["Outreach automation", "Google Sheets", "Workflow efficiency"]
+      "achievements": [
+        "Automated email draft generation from structured lead data",
+        "Reduced manual prep time for outreach campaigns",
+        "Enabled team to focus on relationship-building conversations"
+      ],
+      "technologies": ["Google Sheets", "Gmail API", "Automation workflows"]
     },
     {
-      "meta": "WORKFLOW DESIGN · 2026",
-      "title": "AI-assisted listing image workflow",
-      "description": "Designed a process from raw property photos to listing-ready images with 3 human approval gates. Prompts validated; full implementation not yet built.",
-      "tags": ["Agent workflow design", "Human-in-loop"]
+      "period": "2026",
+      "title": "AI-Assisted Listing Image Workflow Design",
+      "type": "Workflow Design",
+      "description": "Designed a process from raw property photos to listing-ready images with 3 human approval gates. Prompts validated; focuses on human-in-loop AI workflows.",
+      "achievements": [
+        "Designed three approval gates for quality control",
+        "Validated AI prompts for image enhancement workflows",
+        "Created human-in-loop process for maintaining quality standards"
+      ],
+      "technologies": ["Workflow design", "Agent orchestration", "Human-in-loop AI"]
     },
     {
-      "meta": "VIT BHOPAL · 2023–2025",
-      "title": "Club President: 5,000+ attendee events",
-      "description": "Led sponsorship outreach, vendor negotiations, and event operations. Managed 100+ core members and volunteers across planning and execution.",
-      "tags": ["Partnerships", "Team leadership", "Stakeholder management"]
+      "period": "2023–2025",
+      "title": "President — Gujarati Club, VIT Bhopal",
+      "type": "Leadership",
+      "description": "Directed one of VIT Bhopal's largest cultural communities and successfully organized Garba Night with 5,000+ participants. Coordinated 150+ volunteers across marketing, logistics, sponsorships, ticketing, and crowd management operations.",
+      "achievements": [
+        "Organized Garba Night cultural event with 5,000+ participants",
+        "Coordinated 150+ volunteers across multiple operational teams",
+        "Led planning and execution of multiple cultural initiatives",
+        "Managed sponsorship negotiations and vendor relationships",
+        "Directed logistics, marketing, ticketing, and crowd management"
+      ],
+      "technologies": ["Team leadership", "Event management", "Stakeholder coordination", "Operations"]
     }
   ],
+  "skills": {
+    "languages": {
+      "label": "Programming Languages",
+      "items": [
+        { "name": "JavaScript", "level": "Built With" },
+        { "name": "TypeScript", "level": "Built With" },
+        { "name": "Java", "level": "Built With" },
+        { "name": "Python", "level": "Currently Exploring" }
+      ]
+    },
+    "frontend": {
+      "label": "Frontend Development",
+      "items": [
+        { "name": "React.js", "level": "Built With" },
+        { "name": "Next.js", "level": "Built With" },
+        { "name": "Redux Toolkit", "level": "Built With" },
+        { "name": "React Router", "level": "Built With" },
+        { "name": "Leaflet", "level": "Built With" }
+      ]
+    },
+    "backend": {
+      "label": "Backend & APIs",
+      "items": [
+        { "name": "Next.js API Routes", "level": "Built With" },
+        { "name": "REST APIs", "level": "Built With" },
+        { "name": "MongoDB", "level": "Built With" },
+        { "name": "Mongoose ODM", "level": "Built With" },
+        { "name": "FastAPI", "level": "Currently Exploring" }
+      ]
+    },
+    "auth": {
+      "label": "Authentication & Security",
+      "items": [
+        { "name": "NextAuth.js", "level": "Built With" },
+        { "name": "JWT", "level": "Built With" },
+        { "name": "Google OAuth", "level": "Built With" },
+        { "name": "RBAC", "level": "Built With" },
+        { "name": "HMAC Verification", "level": "Built With" }
+      ]
+    },
+    "realtime": {
+      "label": "Real-Time & Geospatial",
+      "items": [
+        { "name": "Socket.IO", "level": "Built With" },
+        { "name": "WebSockets", "level": "Built With" },
+        { "name": "Geolocation API", "level": "Built With" },
+        { "name": "GeoJSON", "level": "Built With" },
+        { "name": "Radius-Based Search", "level": "Built With" }
+      ]
+    },
+    "payments": {
+      "label": "Payments & Communication",
+      "items": [
+        { "name": "Razorpay", "level": "Built With" },
+        { "name": "OTP Verification", "level": "Built With" },
+        { "name": "Email Notifications", "level": "Built With" },
+        { "name": "ZegoCloud Video KYC", "level": "Built With" }
+      ]
+    },
+    "tools": {
+      "label": "Tools & Cloud",
+      "items": [
+        { "name": "Git & GitHub", "level": "Built With" },
+        { "name": "Postman", "level": "Built With" },
+        { "name": "Cloudinary", "level": "Built With" },
+        { "name": "Vercel", "level": "Built With" },
+        { "name": "VS Code", "level": "Built With" }
+      ]
+    },
+    "ai": {
+      "label": "AI & Productivity",
+      "items": [
+        { "name": "Gemini API", "level": "Built With" },
+        { "name": "ChatGPT", "level": "Built With" },
+        { "name": "Claude", "level": "Built With" },
+        { "name": "GitHub Copilot", "level": "Built With" },
+        { "name": "Kiro AI", "level": "Built With" }
+      ]
+    },
+    "fundamentals": {
+      "label": "Computer Science Fundamentals",
+      "items": [
+        { "name": "Data Structures & Algorithms", "level": "Built With" },
+        { "name": "Object-Oriented Programming", "level": "Built With" },
+        { "name": "DBMS", "level": "Built With" },
+        { "name": "Operating Systems", "level": "Working Knowledge" },
+        { "name": "Computer Networks", "level": "Working Knowledge" }
+      ]
+    }
+  },
   "toolkit": {
-    "inPractice": "Google Sheets, Excel, Twenty CRM, outreach, negotiation, and workflow design.",
-    "learning": "SQL, deeper Excel analysis, Mixpanel, product analytics, growth funnels, and prioritisation frameworks.",
-    "interest": "Interested in GTM engineering through useful agents and better business workflows."
+    "inPractice": "React.js, Next.js, TypeScript, MongoDB, Socket.IO, Razorpay, REST APIs, authentication, real-time systems, geospatial features, and AI integrations.",
+    "learning": "Python, FastAPI, PostgreSQL, PostGIS, advanced system design, product analytics, and scalable architecture patterns.",
+    "interest": "Building at the intersection of full-stack engineering, AI systems, and measurable business outcomes. Interested in Forward Deployed Engineering roles where technical solutions directly address customer and business problems."
   }
 }

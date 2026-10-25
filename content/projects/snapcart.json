@@ -1,0 +1,210 @@
+{
+  "id": "snapcart",
+  "title": "SnapCart — Full-Stack Grocery Delivery Platform",
+  "slug": "snapcart",
+  "tagline": "Multi-role commerce platform with real-time delivery tracking",
+  "status": "Implemented",
+  "date": "April 2026",
+  "datePublished": "2026-04",
+  "canonical": "https://vairagakbari.in/projects/snapcart/",
+  "description": "Built a complete multi-role grocery delivery platform covering customer shopping, inventory management, order processing, payment handling, delivery operations, and real-time communication.",
+  "problem": "Online grocery delivery requires coordinating multiple stakeholders—customers browsing and ordering, admins managing inventory and orders, and delivery partners fulfilling orders—while ensuring payment security, real-time visibility, and reliable delivery confirmation.",
+  "solution": "Built a full-stack Next.js platform with three distinct dashboards, secure payment workflows, real-time delivery tracking using Socket.IO and geolocation, radius-based delivery assignment, and AI-powered communication assistance.",
+  "technologies": {
+    "frontend": ["React.js", "Next.js 14", "TypeScript", "Redux Toolkit", "Tailwind CSS"],
+    "backend": ["Next.js API Routes", "MongoDB", "Mongoose", "NextAuth.js"],
+    "realtime": ["Socket.IO", "Leaflet", "Geolocation APIs"],
+    "integrations": ["Razorpay", "Cloudinary", "Google OAuth", "Gemini AI"],
+    "other": ["JWT", "RBAC", "Email notifications", "OTP verification"]
+  },
+  "metrics": {
+    "apiRoutes": 27,
+    "pages": 12,
+    "userRoles": 3,
+    "databaseModels": "Multiple",
+    "deliveryRadius": "10km"
+  },
+  "roles": [
+    {
+      "name": "Customer",
+      "features": [
+        "Browse products by category",
+        "Add items to cart with Redux state management",
+        "Checkout with address and payment method selection",
+        "Razorpay payment or cash-on-delivery",
+        "Track delivery in real-time on interactive map",
+        "Chat with delivery partner with AI quick-reply suggestions",
+        "Order history and status tracking"
+      ]
+    },
+    {
+      "name": "Admin",
+      "features": [
+        "Manage product inventory and categories",
+        "Upload product images to Cloudinary",
+        "View and manage all orders",
+        "Assign deliveries to available partners",
+        "Monitor delivery status and operations",
+        "Generate reports and analytics"
+      ]
+    },
+    {
+      "name": "Delivery Partner",
+      "features": [
+        "Receive delivery assignments within 10km radius",
+        "View order details and customer location",
+        "Update delivery status in real-time",
+        "Navigate using integrated maps",
+        "Chat with customers",
+        "Confirm delivery with OTP",
+        "Track earnings and delivery history"
+      ]
+    }
+  ],
+  "orderLifecycle": [
+    {
+      "stage": "Browse",
+      "description": "Customer browses products by category, views details, and adds items to cart"
+    },
+    {
+      "stage": "Cart",
+      "description": "Redux Toolkit manages cart state, quantities, and total calculations"
+    },
+    {
+      "stage": "Checkout",
+      "description": "Customer enters delivery address and selects payment method"
+    },
+    {
+      "stage": "Payment",
+      "description": "Razorpay integration with server-side HMAC verification or cash-on-delivery option"
+    },
+    {
+      "stage": "Assignment",
+      "description": "Admin assigns order to available delivery partner within 10km radius"
+    },
+    {
+      "stage": "Live Tracking",
+      "description": "Real-time Socket.IO updates show delivery partner location on Leaflet map"
+    },
+    {
+      "stage": "OTP Confirmation",
+      "description": "Delivery partner enters customer OTP to confirm successful delivery"
+    },
+    {
+      "stage": "Delivered",
+      "description": "Order marked complete, email notification sent, status updated"
+    }
+  ],
+  "architecture": {
+    "description": "SnapCart uses Next.js 14 for both frontend and API routes, MongoDB for data persistence, Socket.IO for real-time features, and integrates third-party services for payments, media, and AI.",
+    "layers": [
+      {
+        "name": "Frontend Application",
+        "tech": "React.js, Next.js 14, TypeScript, Redux Toolkit",
+        "responsibilities": ["User interface for three roles", "Cart state management", "Real-time map updates", "Chat interface"]
+      },
+      {
+        "name": "API Routes",
+        "tech": "Next.js API Routes, 27 endpoints",
+        "responsibilities": ["Authentication", "CRUD operations", "Payment processing", "Order management", "Delivery assignment"]
+      },
+      {
+        "name": "Database",
+        "tech": "MongoDB, Mongoose",
+        "responsibilities": ["User data", "Product inventory", "Order records", "Delivery assignments"]
+      },
+      {
+        "name": "Real-Time Layer",
+        "tech": "Socket.IO, Geolocation APIs",
+        "responsibilities": ["Live location tracking", "Chat messaging", "Delivery status updates"]
+      },
+      {
+        "name": "External Services",
+        "tech": "Razorpay, Cloudinary, Gemini AI",
+        "responsibilities": ["Payment processing", "Image storage", "AI-powered chat suggestions"]
+      }
+    ]
+  },
+  "keyFeatures": [
+    {
+      "title": "Multi-Role Authentication",
+      "description": "NextAuth.js with Google OAuth, credentials login, JWT sessions, and role-based access control. Each role has dedicated dashboard and permissions."
+    },
+    {
+      "title": "Secure Payments",
+      "description": "Razorpay integration with server-side payment verification using HMAC signature validation. Supports both online payment and cash-on-delivery."
+    },
+    {
+      "title": "Real-Time Delivery Tracking",
+      "description": "Socket.IO broadcasts delivery partner location updates. Customer sees live position on Leaflet map with route visualization and ETA."
+    },
+    {
+      "title": "Radius-Based Assignment",
+      "description": "Delivery assignments consider partner availability and 10km radius from customer location using geolocation calculations."
+    },
+    {
+      "title": "AI-Powered Chat",
+      "description": "Gemini AI analyzes chat context and suggests quick replies for delivery partners, improving response time and communication quality."
+    },
+    {
+      "title": "OTP Delivery Confirmation",
+      "description": "System generates OTP sent to customer. Delivery partner must enter correct OTP to mark order as delivered, preventing fraud."
+    }
+  ],
+  "engineeringDecisions": [
+    {
+      "decision": "Next.js for both frontend and API routes",
+      "rationale": "Unified codebase, simplified deployment, built-in API routes, TypeScript support, and excellent developer experience.",
+      "tradeoffs": "Couples frontend and backend; alternative would be separate services but adds deployment complexity."
+    },
+    {
+      "decision": "MongoDB with Mongoose",
+      "rationale": "Flexible schema for evolving product and order data. Good fit for document-oriented data like orders with nested items.",
+      "tradeoffs": "No complex joins; relationships handled in application layer. Considered PostgreSQL but prioritized flexibility."
+    },
+    {
+      "decision": "Socket.IO for real-time features",
+      "rationale": "Battle-tested WebSocket library with fallback mechanisms, room-based messaging, and straightforward event handling.",
+      "tradeoffs": "Requires persistent connection; considered polling but real-time updates were core requirement."
+    },
+    {
+      "decision": "Redux Toolkit for cart state",
+      "rationale": "Cart state needs to be accessible across components; Redux Toolkit provides clean state management with minimal boilerplate.",
+      "tradeoffs": "Adds bundle size; considered Context API but Redux DevTools and middleware were valuable."
+    },
+    {
+      "decision": "Server-side payment verification",
+      "rationale": "Security requirement: never trust client-side payment success. HMAC signature validation on server ensures payment integrity.",
+      "tradeoffs": "None—this is a security best practice, not an optimization."
+    },
+    {
+      "decision": "OTP-based delivery confirmation",
+      "rationale": "Prevents fraudulent delivery confirmation. Customer receives OTP, partner must enter it, creating two-party verification.",
+      "tradeoffs": "Slight UX friction; considered photo proof but OTP is simpler and more reliable."
+    }
+  ],
+  "challenges": [
+    {
+      "challenge": "Coordinating real-time location updates across multiple active deliveries",
+      "solution": "Socket.IO rooms per order; only relevant participants receive updates. Geolocation updates throttled to reduce server load."
+    },
+    {
+      "challenge": "Ensuring payment security and handling edge cases",
+      "solution": "Implemented comprehensive payment verification: HMAC validation, status checks, timeout handling, and cash-on-delivery fallback."
+    },
+    {
+      "challenge": "Managing three different user flows in one codebase",
+      "solution": "Role-based routing and components. Middleware checks role; each dashboard has dedicated route structure. Shared components where appropriate."
+    }
+  ],
+  "lessonsLearned": [
+    "Real-time features add complexity but significantly improve user experience for logistics applications",
+    "Payment integration requires careful security considerations and testing of failure scenarios",
+    "Role-based access control should be implemented early and consistently across API and UI",
+    "Geospatial features (radius calculations, maps) are powerful but require understanding coordinate systems and accuracy",
+    "AI assistance works best for specific, well-defined tasks like quick-reply suggestions rather than full automation"
+  ],
+  "github": "https://github.com/VairagPatel",
+  "demo": null,
+  "screenshots": []
+}
